@@ -5,5 +5,18 @@
   <div class="container">
     <p>Id: <span>{{greeting.id}}</span></p>
     <p>Message: <span>{{greeting.content}}!</span></p>
+    <p>Translation test (Browsersprache wird automatisch erkannt, default: Englisch): <span translate>hello</span> </p>
+  </div>
+  <div>
+    <span class="form-inline">
+  <select class="form-control" #selectedLang (change)="switchLang(selectedLang.value)">
+      <option *ngFor="let language of translate.getLangs()"
+              [value]="language"
+              [selected]="translate.currentLang === language">
+        {{ language }}
+      </option>
+    </select>
+  </span>
   </div>
 </div>
+
