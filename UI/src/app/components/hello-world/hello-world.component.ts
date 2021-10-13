@@ -1,25 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {TranslateService} from "@ngx-translate/core";
+import {Greeting} from "../../models/greeting";
+import {GreetingService} from "../../services/greeting.service";
 
 @Component({
   selector: 'hello-world',
   templateUrl: './hello-world.component.html',
-  styleUrls: ['./hello-world.component.scss']
+  styleUrls: ['./hello-world.component.scss'],
+  providers: [GreetingService]
 })
 export class HelloWorldComponent implements OnInit {
 
   isBusy: boolean = true;
 
   title = 'Demo';
-  greeting: any = {};
+  greeting: Greeting = {content: "", id: ""};
 
 
-  constructor(private http: HttpClient,
-              public translate: TranslateService) {
+  constructor(private readonly http: HttpClient,
+              public readonly translate: TranslateService,
+              private readonly resourceService: GreetingService) {
 
-    http.get('/api/resource').toPromise()
-      .then(data => this.greeting = data)
+    resourceService.getId().then(greeting => this.greeting = greeting)
       .finally(() => this.isBusy = false);
 
   }

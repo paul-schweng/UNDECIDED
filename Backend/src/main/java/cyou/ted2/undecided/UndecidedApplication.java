@@ -19,7 +19,7 @@ public class UndecidedApplication {
         SpringApplication.run(UndecidedApplication.class, args);
     }
 
-    @RequestMapping("/resource")
+    @RequestMapping("/api/greeting")
     public Map<String,Object> home() throws InterruptedException {
         Map<String,Object> model = new HashMap<>();
         model.put("id", UUID.randomUUID().toString());

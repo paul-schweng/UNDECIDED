@@ -11,7 +11,8 @@ export class BusyDivComponent implements OnDestroy, OnChanges {
   @Input() showText: boolean = true;
   @Input() maxHeight: boolean = false;
   @Input() busyText: string = "loading";
-  @Input() diameter!: number;
+  @Input() diameter?: number;
+  @Input() styleClass?: string;
   public busyPromise!: Promise<any>;
   private refreshInterval: any;
 

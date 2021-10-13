@@ -1,10 +1,11 @@
-<div class="container border-red">
-  <h1>
+<div class="container border-red mb-5">
+  <h1 class="mb-1 mt-2">
     Welcome {{title}}!
   </h1>
-  <busy-div [busy]="isBusy" [showText]="false" [diameter]="30">
+  <small>(Added 5s delay on server side)</small>
+  <busy-div [busy]="isBusy" [showText]="false" [diameter]="30" [styleClass]="'mt-4 p-3 border border-primary'">
     <p>Id: <span>{{greeting.id}}</span></p>
-    <p>Message: <span>{{greeting.content}}!</span></p>
+    <p class="m-0">Message: <span>{{greeting.content}}!</span></p>
   </busy-div>
   <div class="border border-primary m-5">
     <span class="form-inline justify-content-center">
