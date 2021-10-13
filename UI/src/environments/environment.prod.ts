@@ -1,4 +1,4 @@
-import {environment as defaultSettings} from "./environment";
+import {environment as defaultSettings} from "./default";
 
 export const environment = {
   ...defaultSettings,
