@@ -9,12 +9,21 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class HelloWorldComponent implements OnInit {
 
+  isBusy: boolean = true;
+
   title = 'Demo';
   greeting: any = {};
+
+
   constructor(private http: HttpClient,
               public translate: TranslateService) {
-    http.get('/api/resource').subscribe(data => this.greeting = data);
+
+    http.get('/api/resource').toPromise()
+      .then(data => this.greeting = data)
+      .finally(() => this.isBusy = false);
+
   }
+
 
   ngOnInit(): void {
     this.translate.addLangs(['de','en']);
@@ -25,6 +34,7 @@ export class HelloWorldComponent implements OnInit {
     else
       this.translate.use(this.translate.getDefaultLang());
   }
+
 
   switchLang(lang: string) {
     this.translate.use(lang);

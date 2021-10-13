@@ -9,11 +9,17 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgBusyModule} from "ng-busy";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BusyDivComponent } from './components/common/busy-div/busy-div.component';
+import {CgBusyModule} from "angular-busy2";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HelloWorldComponent
+    HelloWorldComponent,
+    BusyDivComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +33,13 @@ import {NgBusyModule} from "ng-busy";
       }
     }),
     BrowserAnimationsModule,
-    NgBusyModule
+    NgBusyModule,
+    NgbModule,
+    CgBusyModule.forRoot({
+      backdrop: true
+    }),
+    MatProgressSpinnerModule,
+    MatDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

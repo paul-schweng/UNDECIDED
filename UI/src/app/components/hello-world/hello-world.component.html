@@ -1,20 +1,20 @@
-<div style="text-align:center; border: 4px solid red;" class="container">
+<div class="container border-red">
   <h1>
     Welcome {{title}}!
   </h1>
-  <div class="container">
+  <busy-div [busy]="isBusy" [showText]="false" [diameter]="30">
     <p>Id: <span>{{greeting.id}}</span></p>
     <p>Message: <span>{{greeting.content}}!</span></p>
-    <p>Translation test (Browsersprache wird automatisch erkannt, default: Englisch): <span translate>hello</span> </p>
-  </div>
-  <div>
-    <span class="form-inline">
-  <select class="form-control" #selectedLang (change)="switchLang(selectedLang.value)">
-      <option *ngFor="let language of translate.getLangs()"
-              [value]="language"
-              [selected]="translate.currentLang === language">
-        {{ language }}
-      </option>
+  </busy-div>
+  <div class="border border-primary m-5">
+    <span class="form-inline justify-content-center">
+      <span>Translation test (Browsersprache wird automatisch erkannt, default: Englisch): <span translate>hello</span> </span>
+      <select class="form-control m-3" #selectedLang (change)="switchLang(selectedLang.value)">
+        <option *ngFor="let language of translate.getLangs()"
+                [value]="language"
+                [selected]="translate.currentLang === language">
+          {{ language }}
+        </option>
     </select>
   </span>
   </div>
