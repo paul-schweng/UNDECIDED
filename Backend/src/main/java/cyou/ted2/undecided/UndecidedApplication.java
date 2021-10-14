@@ -24,7 +24,7 @@ public class UndecidedApplication {
         Map<String,Object> model = new HashMap<>();
         model.put("id", UUID.randomUUID().toString());
         model.put("content", "Hello World");
-        Thread.sleep(5000);
+        Thread.sleep(5001);
         return model;
     }
 
