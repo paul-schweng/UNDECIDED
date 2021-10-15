@@ -5,8 +5,8 @@
       <configuration>
         <webroots />
         <sourceRoots>
-          <root url="file://$MODULE_DIR$/src/main/java" />
-          <root url="file://$MODULE_DIR$/src/main/resources" />
+          <root url="file://$MODULE_DIR$/Backend/src/main/java" />
+          <root url="file://$MODULE_DIR$/Backend/src/main/resources" />
         </sourceRoots>
       </configuration>
     </facet>
@@ -21,9 +21,9 @@
       <sourceFolder url="file://$MODULE_DIR$/Backend/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Backend/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/Backend/src/test/java" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/UI/dist" />
       <excludeFolder url="file://$MODULE_DIR$/UI/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
