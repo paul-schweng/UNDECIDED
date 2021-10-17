@@ -24,7 +24,7 @@ public class UndecidedApplication {
     public Map<String,Object> home() throws InterruptedException {
         Map<String,Object> model = new HashMap<>();
         model.put("id", UUID.randomUUID().toString());
-        model.put("content", "Hello World");
+        model.put("content", "Hello Paul");
         Thread.sleep(5000);
         return model;
     }
