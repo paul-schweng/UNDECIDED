@@ -11,8 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@RestController
+
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@RestController
 public class UndecidedApplication {
 
     public static void main(String[] args) {
@@ -24,7 +25,7 @@ public class UndecidedApplication {
         Map<String,Object> model = new HashMap<>();
         model.put("id", UUID.randomUUID().toString());
         model.put("content", "Hello World");
-        Thread.sleep(500);
+        Thread.sleep(5000);
         return model;
     }
 
