@@ -121,24 +121,24 @@ Scrum-Platform: JIRA
 - [3.1.17 delete products](#3117-delete-products)
 - [3.1.18 verify](#3118-verify)
 
-###3.1.1 register
-###3.1.2 login
-###3.1.3 delete account
-###3.1.4 logout
-###3.1.5 add profile picture
-###3.1.6 edit profile
-###3.1.7 view my ratings
-###3.1.8 show friends
-###3.1.9 show history
-###3.1.10 rate
-###3.1.11 delete rating 
-###3.1.12 comment rating
-###3.1.13 upvote rating
-###3.1.14 edit comment
-###3.1.15 tag friends 
-###3.1.16 insert product 
-###3.1.17 delete products 
-###3.1.18 verify
+### 3.1.1 register
+### 3.1.2 login
+### 3.1.3 delete account
+### 3.1.4 logout
+### 3.1.5 add profile picture
+### 3.1.6 edit profile
+### 3.1.7 view my ratings
+### 3.1.8 show friends
+### 3.1.9 show history
+### 3.1.10 rate
+### 3.1.11 delete rating 
+### 3.1.12 comment rating
+### 3.1.13 upvote rating
+### 3.1.14 edit comment
+### 3.1.15 tag friends 
+### 3.1.16 insert product 
+### 3.1.17 delete products 
+### 3.1.18 verify
 		
 ## 3.2 Usability
 	
