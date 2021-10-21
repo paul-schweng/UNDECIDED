@@ -32,8 +32,8 @@
 
 ## 1.1 Purpose 
 	
-    This Software Requirements Specification (SRS) describes all specifications for the application "UNDECIDED" and creates an overview 
-    about this project including its vision, detailed information about the planned features as well as functions and boundary conditions of the development process.	
+This Software Requirements Specification (SRS) describes all specifications for the application "UNDECIDED" and creates an overview 
+about this project including its vision, detailed information about the planned features as well as functions and boundary conditions of the development process.	
 		
 ## 1.2 Scope 
 	
