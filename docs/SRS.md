@@ -37,27 +37,45 @@ This Software Requirements Specification (SRS) describes all specifications for 
 	
 UNDECIDED will be realised as a webapp and its actors will be private users, business users or administrators. 
 
-Subsystems:
+Subsystems: //hier müssen noch die beschreibungen rein
 
-  - Authentication
-  - Ratings
-  - Profile
-  - Business Functions
-		
-	
+  - Authentication:  
+
+  - Ratings:  
+  
+  - Profile:  
+
+  - Business Functions:  
+  
+  - Admin Panel:  
+
+			
 ## 1.3 Definitions, Acronyms & Abbreviations
 	
-Welche Abkürzungen / allgemein fremde Begriffe verwenden wir? -> definition hier  
+| Abbrevation     | Explanation                         |
+|-----------------|-------------------------------------|
+| SRS             | Software Requirements Specification |
+| UC	          | Use Case                            |
+| n/a	          | not applicable                      |
+| tbd	          | to be determined                    |
+| UCD	          | Use Case Diagram                    |
+| FAQ	          | Frequently asked Questions          |
+| CI              | continuous integration              |
+| CD              | continuous deployment               |
+| IDE             | integrated development environment  |
+| DB              | database				|
 	
-	
+
 ## 1.4 References
-	
-//hier bloglink
-//hier github link
+| Title							                                  | Date	  | Publishing organization   |
+| --------------------------------------------------------------------------------------- | ------------- | ------------------------- |
+| [UNDECIDED Blog](https://uundecided.wordpress.com)			  | 21.10.2021	  | UNDECIDED Team	      | 
+| [GitHub](https://github.com/paul-schweng/UNDECIDED)					  | 21.10.2021    | UNDECIDED Team            |
+| [Jira](https://diesdasundso.atlassian.net/jira/software/c/projects/NDCDD/boards/4?atlOrigin=eyJpIjoiNjIzYmEwNzk3YzNiNDI5ZjkyZjMzNTI1NTJmOTZkNDciLCJwIjoiaiJ9) | 21.10.2021 | UNDECIDED Team |
 	
 ## 1.5 Overview
 	
-The next chapters provide information about our vision based on the overall use case diagram (OUCD) as well as a more detailed requirements specification in terms of functionality, usability and design.
+The next chapters provide information about our vision based on the UCD as well as a more detailed requirements specification in terms of functionality, usability and design.
 
 ---
 [nach oben](#inhalt)
@@ -75,7 +93,7 @@ The goal of our project UNDECIDED is to build a webapp solution that allows peop
 	 
 ## 2.2 Product Functions 
 	
-HIER USE CASE DIAGRAM einfügen 
+![UCD](./UseCaseDiagram.jpg)
 		
 ## 2.3 User Characteristics 
 
@@ -100,7 +118,7 @@ Scrum-Platform: JIRA
 ---
 # 3. Specific Requirements
 
-## 3.1 Functionality 
+## 3.1 Functionality //hier muss eine beschreibung zu den punkten rein
 	
 - [3.1.1 register](#311-register)
 - [3.1.2 login](#312-login)
@@ -145,6 +163,7 @@ Scrum-Platform: JIRA
 We will build the user interface intuitive, so that a new user does not necessarily need an explanation. If questions arise our interface provides a comprehensive FAQ. If the user doesn't know the principle of flashcards and a system to learn with them, the user interface provides a manual how to learn with flashcards as well.
 	
 ## 3.3 Reliability
+tbd
 ### 3.3.1 Availability
 ### 3.3.2 Defect Rate
 ### 3.3.3 MTBF, MTTR
@@ -153,6 +172,7 @@ We will build the user interface intuitive, so that a new user does not necessar
 
 ## 3.4 Performance
 In general, we try to keep to user experience fluent and response times low. 
+tbd
 ### 3.4.1 Response time
 ### 3.4.2 Throughput
 ### 3.4.3 Capacity
@@ -162,10 +182,13 @@ In general, we try to keep to user experience fluent and response times low.
 Bsp: Our frontend, backend and each functionality will be clearly separated and we try to stick to naming conventions which are common in the used technologies. Furthermore we aim to keep our code clean which we can't guarantee though. Thereby we make it easy to understand our infrastructure and avoid possible confusion when one needs to edit older parts of the application.
 CODING STANDARDS
 TESTING STRATEGY
+tbd
 
 ## 3.6 Design Constraints
-Bsp: We are focused on building a modern-looking application using modern technologies. Of course there are other smaller libraries and frameworks used than the ones that are listed, but they represent just a small fraction of the whole project and aren't worth mentioning. Especially in ReactJS one does add a lot of external modules.
-		
+We are focused on building a modern-looking web-application using modern technologies. Of course there are other smaller libraries and frameworks used than the ones that are listed, but they represent just a small fraction of the whole project and aren't worth mentioning. In order to meet the requirements and wished of our team we conducted a survey which shows the following results.
+
+![Word Cloud](./word_cloud.png)
+
 ## 3.7 Online User Documentation & Help System Requirements
 	
 The user interface will be intuitive and simple so that the user can navigate easily between the different sections. Futhermore it is planned that there will be a FAQ and a help page, where the basic steps for using the webapp will be presented and explained step-by-step. 
@@ -175,18 +198,29 @@ The user interface will be intuitive and simple so that the user can navigate ea
 N\A
 	
 ## 3.9 Interfaces 
+tbd
 ### 3.1.9 User Interfaces 
 ### 3.9.2 Hardware Interfaces 
 ### 3.9.3 Software Interfaces 
 ### 3.9.4 Communication Interfaces 
 
 ## 3.10 Licensing Requirements
-## 3.11 Legal, Copyright & Other Notices 
-## 3.12 Applicable Standards 
+tbd
 
+## 3.11 Legal, Copyright & Other Notices 
+The logo is licensed to the UNDECIDED Team and is only allowed to use for the application. We do not take responsibilty for any incorrect data or errors in the application.
+
+## 3.12 Applicable Standards   
+tbd
 ---
 [nach oben](#inhalt)
 
 ---
 ---
-# 4. Supporting Information 	
+# 4. Supporting Information  	
+For any further information you can contact the UNDECIDED team or check our [UNDECIDED Blog](https://uundecided.wordpress.com). 
+The Team Members are:
+- Elisa Schäfer
+- Paul Schweng
+- Krystian Schmidt
+- Christian Geier
