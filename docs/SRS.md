@@ -145,18 +145,18 @@ Scrum-Platform: JIRA
 We will build the user interface intuitive, so that a new user does not necessarily need an explanation. If questions arise our interface provides a comprehensive FAQ. If the user doesn't know the principle of flashcards and a system to learn with them, the user interface provides a manual how to learn with flashcards as well.
 	
 ## 3.3 Reliability
-3.3.1 Availability
-3.3.2 Defect Rate
-3.3.3 MTBF, MTTR
-3.3.3 Accuracy
-3.3.4 Bug classes
+### 3.3.1 Availability
+### 3.3.2 Defect Rate
+### 3.3.3 MTBF, MTTR
+### 3.3.3 Accuracy
+### 3.3.4 Bug classes
 
 ## 3.4 Performance
 In general, we try to keep to user experience fluent and response times low. 
-3.4.1 Response time
-3.4.2 Throughput
-3.4.3 Capacity
-3.4.4 Resource utilization
+### 3.4.1 Response time
+### 3.4.2 Throughput
+### 3.4.3 Capacity
+### 3.4.4 Resource utilization
 
 ## 3.5 Supportability
 Bsp: Our frontend, backend and each functionality will be clearly separated and we try to stick to naming conventions which are common in the used technologies. Furthermore we aim to keep our code clean which we can't guarantee though. Thereby we make it easy to understand our infrastructure and avoid possible confusion when one needs to edit older parts of the application.
@@ -175,10 +175,10 @@ The user interface will be intuitive and simple so that the user can navigate ea
 N\A
 	
 ## 3.9 Interfaces 
-3.1.9 User Interfaces 
-3.9.2 Hardware Interfaces 
-3.9.3 Software Interfaces 
-3.9.4 Communication Interfaces 
+### 3.1.9 User Interfaces 
+### 3.9.2 Hardware Interfaces 
+### 3.9.3 Software Interfaces 
+### 3.9.4 Communication Interfaces 
 
 ## 3.10 Licensing Requirements
 ## 3.11 Legal, Copyright & Other Notices 
