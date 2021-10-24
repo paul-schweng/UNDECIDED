@@ -43,13 +43,13 @@ Subsystems:
 In our authentification process a guest can register to become a user. During the registration process a guest is able to choose whether they are a normal or business user. After that a user can login to get access to the website. A user can also logout or delete their account. If a user forgets their password they can reset it.  
 
   - Ratings:  
-A user can create and post Ratings. These ratings can be edited, deleted by the user or upvoted and commented on by other users. Those comments can again be edited by the user who posted the comment. When creating a rating a user tag their friends in it.
+A user can create and post ratings. These ratings can be edited or deleted by the user or upvoted and commented on by other users. Those comments can again be edited by the user who posted the comment. When creating a rating a user tag their friends in it.
 
   - Profile:  
-A distinction is made between a user profile and a business user profile. A normal user can add and edit their profile data including a profile picture. Further it is possible to view the own rating were made. A profile also have a list of friends which were added. In contrast to a user a business user can only add profile data and edit them.
+A distinction is made between a user profile and a business user profile. A normal user can add and edit their profile data including a profile picture. Further it is possible to view the own ratings that were made. A profile also has a list of friends which were added. In contrast to a user a business user can only add profile data and edit it.
 
   - Business Functions:  
-As a business user they have access business-only functions. They can insert their own products with product pictures and also delete them. They can also use tags for their product like 'vegan' or 'glutenfree'. After they insert the product they can also change it. They can also request verification so the users know that they are the original restaurant/shop.
+As a business user they have access to business-only functions. They can insert their own products with product pictures and also delete them. They can use tags for their product like 'vegan' or 'glutenfree'. After they insert the product they can also change it. They can request verification so the users know that they are the original restaurant/shop.
 
   - Admin Panel:  
 An admin can use their admin panel to block (business) users and administrate the website meaning they are able to delete ratings or comments.
@@ -93,7 +93,7 @@ The next chapters provide information about our vision based on the UCD as well 
 	
 The goal of our project UNDECIDED is to build a webapp solution that allows people to rate food and drinks they have consumed in a restaurant or have bought in the supermarket in order to help others decide what to order or buy. With that the users will be able to help each other deciding and to make better decisions themselves. 
 
->For further information on our vision see our first blogpost: https://uundecided.wordpress.com/2021/10/10/thebeginning/
+>For further information on our vision see our [first blogpost](https://uundecided.wordpress.com/2021/10/10/thebeginning/).
 	 
 ## 2.2 Product Functions 
 	
@@ -122,7 +122,7 @@ Scrum-Platform: JIRA
 ---
 # 3. Specific Requirements
 
-## 3.1 Functionality //hier muss eine beschreibung zu den punkten rein
+## 3.1 Functionality
 	
 - [3.1.1 register](#311-register)
 - [3.1.2 login](#312-login)
@@ -145,12 +145,16 @@ Scrum-Platform: JIRA
 
 ### 3.1.1 register
 In the authentification process a guest and a business user have to register to get acces to the website. A guest becomes a user by creating a account.
+
 ### 3.1.2 login
 The website will provide the possibility to log in. This will also make the usability easier when a user wants to manage his sessions, post or join a session because they don't have to enter their mail address every time.
+
 ### 3.1.3 delete account
 A user and a business user is able to delete his account and thus the ability to delete their data. 
+
 ### 3.1.4 logout
 In case you share your phone, have multiple accounts or just want to be cautius about your privacy you should be able to manually log out.
+
 ### 3.1.5 add profile picture
 A (business) user can add/delete a profile picture.
 
@@ -191,7 +195,7 @@ As a business user you can add products to your account.
 As a business user you can delete your inserted products.
 
 ### 3.1.18 verify
-A business user can request a verification for his account, which gives them a blue verification badge and enables all the business functions. The verification request must be approved by an admin.
+A business user can request a verification for his account, which gives them a blue verification badge. The verification request must be approved by an admin.
 		
 ## 3.2 Usability
 	
