@@ -140,27 +140,50 @@ Scrum-Platform: JIRA
 - [3.1.18 verify](#3118-verify)
 
 ### 3.1.1 register
-In the authentification process a guest and a business user have to register to get acces to the webpage. A guest becomes a user by creating a account.
 ### 3.1.2 login
-The Webpage will provide the possibility to log in. This will also make the usability easier when a user wants to manage his sessions, post or join a session because they don't have to enter their mail address every time.
 ### 3.1.3 delete account
-A user and a business user is able to delete his account and thus the ability to delete their data. 
 ### 3.1.4 logout
-In case you share your phone, have multiple accounts or just want to be cautius about your privacy you should be able to manually log out.
 ### 3.1.5 add profile picture
+A (business) user can add/delete a profile picture.
+
 ### 3.1.6 edit profile
+A (business) user can edit their profile.
+
 ### 3.1.7 view my ratings
+A user can see a list of their posted ratings.
+
 ### 3.1.8 show friends
+A user can see a list of who they are following/who follows them.
+
 ### 3.1.9 show history
+A user can see their statistics, e.g. number of friends/posted ratings/...
+
 ### 3.1.10 rate
+A user can post a rating on a drink/meal/restaurant/...
+
 ### 3.1.11 delete rating 
+A user can delete their rating.
+
 ### 3.1.12 comment rating
+A user can comment a rating.
+
 ### 3.1.13 upvote rating
+A user can upvote a rating.
+
 ### 3.1.14 edit comment
+A user can edit their comment on a rating.
+
 ### 3.1.15 tag friends 
+A user can tag their friends in a rating.
+
 ### 3.1.16 insert product 
+As a business user you can add products to your account.
+
 ### 3.1.17 delete products 
+As a business user you can delete your inserted products.
+
 ### 3.1.18 verify
+A business user can request a verification for his account, which gives them a blue verification badge and enables all the business functions. The verification request must be approved by an admin.
 		
 ## 3.2 Usability
 	
