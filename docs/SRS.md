@@ -140,9 +140,13 @@ Scrum-Platform: JIRA
 - [3.1.18 verify](#3118-verify)
 
 ### 3.1.1 register
+In the authentification process a guest and a business user have to register to get acces to the webpage. A guest becomes a user by creating a account.
 ### 3.1.2 login
+The Webpage will provide the possibility to log in. This will also make the usability easier when a user wants to manage his sessions, post or join a session because they don't have to enter their mail address every time.
 ### 3.1.3 delete account
+A user and a business user is able to delete his account and thus the ability to delete their data. 
 ### 3.1.4 logout
+In case you share your phone, have multiple accounts or just want to be cautius about your privacy you should be able to manually log out.
 ### 3.1.5 add profile picture
 A (business) user can add/delete a profile picture.
 
