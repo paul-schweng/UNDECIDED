@@ -98,6 +98,7 @@ The goal of our project UNDECIDED is to build a webapp solution that allows peop
 ## 2.2 Product Functions 
 	
 ![UCD](./UseCaseDiagram.jpg)
+- Green: Planned till end of december
 		
 ## 2.3 User Characteristics 
 
