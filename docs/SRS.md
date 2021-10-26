@@ -8,7 +8,7 @@
   - [1.5 Overview](#15-overview)
 - [2. Overall Description](#2-overall-description)
   - [2.1 Product Perspective](#21-product-perspective)
-  - [2.2 Product Functions](#22-product-functions)
+  - [2.2 Product Functionalities / Features](#22-product-functionalities-/-features)
   - [2.3 User Characteristics](#23-user-characteristics)
   - [2.4 Assumptions and Dependencies](#24-assumptions-and-dependencies)
 - [3. Specific Requirements](#3-specific-requirements)
@@ -95,7 +95,7 @@ The goal of our project UNDECIDED is to build a webapp solution that allows peop
 
 >For further information on our vision see our [first blogpost](https://uundecided.wordpress.com/2021/10/10/thebeginning/).
 	 
-## 2.2 Product Functions 
+## 2.2 Product Functionalities / Features 
 	
 ![UCD](./UseCaseDiagram.svg)
 - Green: Planned till end of December
