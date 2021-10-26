@@ -82,7 +82,7 @@ An admin can use their admin panel to block (business) users and administrate th
 The next chapters provide information about our vision based on the UCD as well as a more detailed requirements specification in terms of functionality, usability and design.
 
 ---
-[nach oben](#inhalt)
+[move up](#inhalt)
 
 ---
 ---
@@ -117,7 +117,7 @@ Mockups: Zeplin & Figma
 Scrum-Platform: JIRA
 
 ---
-[nach oben](#inhalt)
+[move up](#inhalt)
 
 ---	
 ---
@@ -253,7 +253,7 @@ The logo is licensed to the UNDECIDED Team and is only allowed to use for the ap
 ## 3.12 Applicable Standards   
 tbd
 ---
-[nach oben](#inhalt)
+[move up](#inhalt)
 
 ---
 ---
