@@ -73,7 +73,7 @@ An admin can use their admin panel to block (business) users and administrate th
 ## 1.4 References
 | Title							                                  | Date	  | Publishing organization   |
 | --------------------------------------------------------------------------------------- | ------------- | ------------------------- |
-| [UNDECIDED Blog](https://uundecided.wordpress.com)			  | 21.10.2021	  | UNDECIDED Team	      | 
+| [UNDECIDED Blog](https://uundecided.wordpress.com)			  		  | 21.10.2021	  | UNDECIDED Team	      | 
 | [GitHub](https://github.com/paul-schweng/UNDECIDED)					  | 21.10.2021    | UNDECIDED Team            |
 | [Jira](https://diesdasundso.atlassian.net/jira/software/c/projects/NDCDD/boards/4?atlOrigin=eyJpIjoiNjIzYmEwNzk3YzNiNDI5ZjkyZjMzNTI1NTJmOTZkNDciLCJwIjoiaiJ9) | 21.10.2021 | UNDECIDED Team |
 	
@@ -106,15 +106,15 @@ Generally there are two types of users for UNDECIDED. People all over the world 
 	
 ## 2.4 Assumptions and Dependencies 
 	
-Backend: Spring Framework
-Frontend: Angular
-Database: Maria DB
-IDE: IntelliJ
-Version Control: Git
-Repository Platform: GitHub
-CI/CD: Docker & Jenkins 
-Mockups: Zeplin & Figma 
-Scrum-Platform: JIRA
+- Backend: Spring Boot Framework
+- Frontend: Angular
+- Database: Maria DB
+- IDE: IntelliJ
+- Version Control: Git
+- Repository Platform: GitHub
+- CI/CD: Docker & Jenkins 
+- Mockups: Zeplin & Figma 
+- Scrum-Platform: JIRA
 
 ---
 [move up](#inhalt)
