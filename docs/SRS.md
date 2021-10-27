@@ -37,6 +37,17 @@ This Software Requirements Specification (SRS) describes all specifications for 
 	
 UNDECIDED will be realised as a webapp and its actors will be private users, business users or administrators. 
 
+Actors:
+
+ - Guest:
+ A Guest is a someone who has no account registered on our site.
+ 
+ - (Business) user: 
+ A (business) user is someone who has an account registered on our site. Depending on whether you are a regular or business user you have access to different functionalities of the site as shown in the [Use Case Diagram](#22-product-functionalities--features).
+ 
+ - Administration:
+ An Admin is someone from our team and can administrate the webapp.
+
 Subsystems:
 
   - Authentication:  
@@ -146,7 +157,8 @@ Generally there are two types of users for UNDECIDED. People all over the world 
 - [3.1.18 verify](#3118-verify)
 
 ### 3.1.1 register
-In the authentification process a guest and a business user have to register to get acces to the website. A guest becomes a user by creating a account.
+In the authentification process a guest has the possibility to register to get access to the website's functionalities. <br/>
+In other words: A guest becomes a (business) user by creating an account.
 
 ### 3.1.2 login
 The website will provide the possibility to log in. This will also make the usability easier when a user wants to manage his sessions, post or join a session because they don't have to enter their mail address every time.
@@ -212,17 +224,26 @@ tbd
 ### 3.3.4 Bug classes
 
 ## 3.4 Performance
-In general, we try to keep to user experience fluent and response times low. 
-tbd
+
 ### 3.4.1 Response time
+Response times are kept low to guarantee a fluent user experience.
+
 ### 3.4.2 Throughput
+tbd
+
 ### 3.4.3 Capacity
+Our system should be able to handle hundreds to thousands of requests every minute. We are looking forward to increase the capacity to unlimited as the app grows in popularity.
+
 ### 3.4.4 Resource utilization
+Due to the project being a webapp, we cannot utilize the storage of the user's devices effectively. Because every rating can include an image, we will need a lot of storage space.
 
 ## 3.5 Supportability
-Bsp: Our frontend, backend and each functionality will be clearly separated and we try to stick to naming conventions which are common in the used technologies. Furthermore we aim to keep our code clean which we can't guarantee though. Thereby we make it easy to understand our infrastructure and avoid possible confusion when one needs to edit older parts of the application.
-CODING STANDARDS
-TESTING STRATEGY
+The front- and backend are seperated into two different repositories, but the frontend repository is treated as a submodule of the backend repository.
+
+The code will be written according to naming standards/convetions and as self-explanatory code, so reading and actually understanding what your team mates did will be easier.
+
+CODING STANDARDS <br/>
+TESTING STRATEGY <br/>
 tbd
 
 ## 3.6 Design Constraints
