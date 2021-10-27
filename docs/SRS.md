@@ -99,6 +99,7 @@ The goal of our project UNDECIDED is to build a webapp solution that allows peop
 	
 ![UCD](./UseCaseDiagram.svg)
 - Green: Planned till end of December
+- White: Planned till end of June
 		
 ## 2.3 User Characteristics 
 
