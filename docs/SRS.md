@@ -225,9 +225,7 @@ TESTING STRATEGY
 tbd
 
 ## 3.6 Design Constraints
-We are focused on building a modern-looking web-application using modern technologies. Of course there are other smaller libraries and frameworks used than the ones that are listed, but they represent just a small fraction of the whole project and aren't worth mentioning. In order to meet the requirements and wished of our team we conducted a survey which shows the following results.
-
-![Word Cloud](./word_cloud.png)
+We are focused on building a modern-looking web-application using modern technologies. Of course there are other smaller libraries and frameworks used than the ones that are listed, but they represent just a small fraction of the whole project and aren't worth mentioning. In order to meet the requirements and wished of our team we conducted a survey which shows the [linked result](word_could.png).
 
 ## 3.7 Online User Documentation & Help System Requirements
 	
