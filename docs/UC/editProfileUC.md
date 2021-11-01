@@ -2,7 +2,7 @@
 Edit Profile
 
 ## 1.1 Brief Description
-A user is able to make changes to his profile attributes, like his name or email...
+A user is able to make changes to his profile attributes, like his name or email etc.
 # 2 Flow of Events
 ## 2.1 Basic Flow
 
