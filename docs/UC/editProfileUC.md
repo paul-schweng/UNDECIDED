@@ -36,7 +36,7 @@ A user is able to make changes to his profile attributes, like his name or email
 ## 4.1 Login
 The user has to be logged in to the system.
 
-##4.2 Profile Page
+## 4.2 Profile Page
 The user has to be on his profile page.
 
 # 5 Postconditions
