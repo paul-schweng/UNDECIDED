@@ -20,7 +20,7 @@ A user is able to make changes to his profile attributes, like his name or email
 ![Organization Application Activity Diagram](editProfile.svg)
 
 ### 2.1.2 Mock-up
-![](UC/EDIT-PROFILE.png)
+![](EDIT-PROFILE.png)
 
 ### 2.1.3 Narrative
 ```gherkin
