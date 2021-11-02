@@ -14,7 +14,7 @@ A user is able to make changes to his profile attributes, like his name or email
     - his new password
     - his profile picture
     - nothing
-- User clicks on "save changes" button 
+- User clicks on "save changes" button or "cancel" button 
 
 ### 2.1.1 Activity Diagram
 ![Organization Application Activity Diagram](editProfile.svg)
