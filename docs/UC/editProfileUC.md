@@ -1,5 +1,5 @@
 # 1 Use-Case Name
-Edit Profile
+[Edit Profile](../SRS.md#316-edit-profile)
 
 ## 1.1 Brief Description
 A user is able to make changes to his profile attributes, like his name or email etc.

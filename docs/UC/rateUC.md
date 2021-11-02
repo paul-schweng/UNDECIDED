@@ -1,5 +1,5 @@
 # 1 Use-Case Name
-Rate
+[Rate](../SRS.md#3110-rate)
 
 ## 1.1 Brief Description
 A user is able to rate a product by writing a review and uploading an optional picture of the product.
