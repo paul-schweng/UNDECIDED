@@ -173,7 +173,8 @@ In case you share your phone, have multiple accounts or just want to be cautius 
 A (business) user can add/delete a profile picture.
 
 ### 3.1.6 edit profile
-A (business) user can edit their profile.
+A (business) user can edit their profile.   
+[use case specification](UC/editProfileUC.md)
 
 ### 3.1.7 view my ratings
 A user can see a list of their posted ratings.
@@ -185,7 +186,8 @@ A user can see a list of who they are following/who follows them.
 A user can see their statistics, e.g. number of friends/posted ratings/...
 
 ### 3.1.10 rate
-A user can post a rating on a drink/meal/restaurant/...
+A user can post a rating on a drink/meal/restaurant/...  
+[use case specification](UC/rateUC.md)
 
 ### 3.1.11 delete rating 
 A user can delete their rating.
