@@ -16,7 +16,7 @@ A user is able to rate a product by writing a review and uploading an optional p
 ![UC Activity Diagram](Rate.svg)
 
 ### 2.1.2 Mock-up
-![Mockup]()
+![](ADD-POST.png)
 
 ### 2.1.3 Narrative
 ```gherkin
