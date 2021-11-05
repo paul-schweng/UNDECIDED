@@ -68,7 +68,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.12.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.10" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.10" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.experimental:spring-native:0.10.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.session:spring-session-core:2.5.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.10" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-configuration-processor:2.5.5" level="project" />
