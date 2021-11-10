@@ -3,36 +3,41 @@ Feature: Rate
   I want to rate a product and upload a picture
 
   Background:
+    Given following rating attributes:
+      | attribute     | required |
+      | image         | false    |
+      | product name  | true     |
+      | product brand | false    |
+      | product type  | true     |
+      | product tags  | false    |
+      | description   | false    |
+      | stars         | true     |
+      | friends       | false    |
     Given is logged in
-    Given rate is clicked
+    And new rating is clicked
 
-  Scenario: rate with picture
-    When upload button is clicked
-    Then open filebrowser
-    And choose picture
-    When enter product field is focused
-    Then enter product
-    When enter rating field is focused
+  Scenario: post rating
+    When user enters attributes
+    And all required attributes are set
+    Then post rating
+
+  Scenario: discard rating
+    When user clicks
     Then enter rating
-    When post rating button is clicked
+    Then tag friends
     Then post rating
 
-  Scenario: rate without picture and tag friends
-    When enter product field is focused
-    Then enter product
-    When enter rating field is focused
-    Then enter rating
-    When tag friends button is clicked
-    Then choose friend to tag
-    When post rating button is clicked
-    Then post rating
+  Scenario: temporarily save rating
+    When user clicks on dialog's backdrop
+    Then save the created rating
+    But do not post it
+    And close the popup
 
-  Scenario: enter product that is not in DB
-    When enter product field is focused
-    Then enter product
-    When product is not found
-    Then create new product in DB
-    When enter rating field is focused
-    Then enter enter rating
-    When post rating button is clicked
-    Then post rating
+  Scenario: post rating which you previously worked on
+    When saved rating is found
+    Then load the popup with these changes to the input fields
+
+  Scenario: invalid rating attribute changes
+    When user leaves a required attribute empty
+    Then post button is disabled
+    And the corresponding input field is highlighted
