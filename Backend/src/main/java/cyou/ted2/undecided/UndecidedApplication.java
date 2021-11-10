@@ -31,7 +31,6 @@ public class UndecidedApplication extends SpringBootServletInitializer {
     }
 
     @RequestMapping("/api/greeting")
-    @Given("is logged in")
     public Map<String,Object> home() throws InterruptedException {
         Map<String,Object> model = new HashMap<>();
         model.put("id", UUID.randomUUID().toString());

@@ -3,28 +3,33 @@ as a User
 I want to be able to change my profile attributes.
 
 	Background:
-		Given The User is logged in
-		Given The User is on his profile page
-		Given The button for "edit profile" is clicked 
+		Given following attributes:
+			| attribute       | required |
+			| profile picture | false    |
+			| banner picture  | true     |
+			| description     | false    |
+			| name            | true     |
+		Given user is logged in
+		And user is on their profile page
+		And the button for "edit profile" is clicked
+
 
 	Scenario: successfully changed profile attributes
-		When changes description
-		Then enter new description
-		When changes name
-		Then enter new name
-		When change profile picture
-		Then enter new profile picture
-		When change banner picture
-		Then enter new banner picture
-		Then save changes
+		When user changes any attributes
+		And user saves changes
+		Then changes are sent to server
+		And DB is updated
 		And back to profile page
+		Then wait 1 second
+		And request user details from server
+		And update the user details in the client
 
 	Scenario: no profile attribute changes
-		When the user presses cancel button
-		Then back to profile page
+		When user presses cancel button
+		Then discard any entered changes
+		And back to profile page
 
 	Scenario: invalid profile attribute changes
-		When name is empty
-		Then enter new name
-		Then save changes
-		And back to profile page
+		When user leaves a required attribute empty
+		Then save changes button is disabled
+		And the corresponding input field is highlighted
