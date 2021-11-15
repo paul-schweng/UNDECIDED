@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  backend:
+
+  apache:
+    image: ubuntu/apache2
+    volumes:
+      - /etc/apache2/sites-enabled:/etc/apache2/sites-enabled
+      - /usr/share/phpmyadmin:/usr/share/phpmyadmin
+    ports:
+      - "80:80"
+
+  db:
+    image:
+
+
+
+
+networks:
+  web:
+  db:
