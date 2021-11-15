@@ -17,7 +17,7 @@ services:
   apache:
     image: ubuntu/apache2
     volumes:
-      - /srv/docker/angular/UNDECIDED-UI/apache.conf:/etc/apache2/sites-enabled
+      - /srv/docker/angular/UNDECIDED-UI/apache.conf:/etc/apache2/sites-enabled/001-page.conf
       - /srv/docker/angular/UNDECIDED-UI/dist:/var/www/html
     ports:
       - "81:80"
