@@ -1,7 +1,18 @@
 version: '3.9'
 
 services:
-#  backend:
+
+
+  backend:
+    image: openjdk:11
+    volumes:
+    - /srv/docker/spring/spring/UNDECIDED/target/UNDECIDED-01.jar:./undecided.jar
+    command: "java -jar undecided.jar"
+    expose:
+      - "80"
+    networks:
+      -web
+      -db
 
   apache:
     image: ubuntu/apache2
