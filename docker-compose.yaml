@@ -1,18 +1,20 @@
 version: '3.9'
 
 services:
-  backend:
+#  backend:
 
   apache:
     image: ubuntu/apache2
     volumes:
-      - /etc/apache2/sites-enabled:/etc/apache2/sites-enabled
-      - /usr/share/phpmyadmin:/usr/share/phpmyadmin
+      - /srv/docker/angular/UNDECIDED-UI/apache.conf:/etc/apache2/sites-enabled
+      - /srv/docker/angular/UNDECIDED-UI/dist:/var/www/html
     ports:
-      - "80:80"
+      - "81:80"
+    networks:
+      - web
 
-  db:
-    image:
+#  db:
+#    image:
 
 
 
