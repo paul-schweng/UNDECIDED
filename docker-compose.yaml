@@ -33,4 +33,6 @@ services:
 
 networks:
   web:
+    driver: bridge
   db:
+    driver: bridge
