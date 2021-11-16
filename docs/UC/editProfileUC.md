@@ -62,7 +62,11 @@ I want to be able to change my profile attributes.
 ```
 
 ## 2.2 Alternative Flows
-(n/a)
+### No profile attribute changes
+
+- User clicks on "edit profile" button
+- User changes nothing and clicks on "cancel" button
+
 
 # 3 Special Requirements
 (n/a)

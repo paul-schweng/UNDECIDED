@@ -66,7 +66,20 @@ Feature: Rate
 ```
 
 ## 2.2 Alternative Flows
-(n/a)
+### Post rating
+
+- User clicks on rate button
+- User enters all required attributes
+- User clicks on 'post rating'
+
+### Discard rating
+
+- User clicks on rate button
+- User enters the rating
+- User tags friends
+- User clicks on cancel button
+
+
 
 # 3 Special Requirements
 (n/a)
