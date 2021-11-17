@@ -4,26 +4,51 @@ services:
 
 
   backend:
-    image: openjdk:11
-    volumes:
-    - /srv/docker/spring/spring/UNDECIDED/target/UNDECIDED-01.jar:./undecided.jar
-    command: "java -jar undecided.jar"
-    expose:
-      - "80"
+    build: .
+    image: spring
+#      context: /srv/docker/spring/UNDECIDED
+#      args:
+#        version: 0.1
+#    working_dir: /undecided
+#    volumes:
+#      - /srv/docker/spring/spring/UNDECIDED/target/UNDECIDED-0.1.jar:/undecided/undecided.jar
+#    command: "java -jar /undecided.jar"
+    ports:
+      - "8080:8080"
     networks:
-      -web
-      -db
+      - web
+      - db
 
   apache:
     image: ubuntu/apache2
     volumes:
       - /srv/docker/angular/UNDECIDED-UI/apache.conf:/etc/apache2/sites-enabled/001-page.conf
-      - /srv/docker/angular/UNDECIDED-UI/dist:/var/www/html
+      - /srv/docker/angular/UNDECIDED-UI/dist/UI:/var/www/html
+#    ports:
+#      - "81:80"
+#    networks:
+#      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.entrypoints=web"
+      - "traefik.http.routers.apache.rule=ClientIP(`0.0.0.0/0`)"
+#     depends_on:
+#      - backend
+
+  traefik:
+    image: "traefik:v2.5"
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:81"
     ports:
       - "81:80"
-    networks:
-      - web
-      - db
+      - "8888:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
 
 #  db:
 #    image:
@@ -33,6 +58,4 @@ services:
 
 networks:
   web:
-    driver: bridge
   db:
-    driver: bridge

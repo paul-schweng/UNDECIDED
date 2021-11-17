@@ -5,5 +5,5 @@
 FROM openjdk:11
 ARG version
 WORKDIR /usr/src/undecided
-COPY /srv/docker/spring/UNDECIDED/target/UNDECIDED-$version.jar /usr/src/undecided/undecided.jar
-RUN java -jar undecided.jar
+COPY target/UNDECIDED-0.1.jar /undecided.jar
+ENTRYPOINT ["java","-jar","/undecided.jar"]
