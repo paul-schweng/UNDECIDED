@@ -54,7 +54,7 @@ public class UndecidedApplication extends SpringBootServletInitializer {
                     .httpBasic()
                     .and()
                         .authorizeRequests()
-                            .antMatchers("/api/user").permitAll()
+                            .antMatchers("/api/user", "/auth/*").permitAll()
                             .anyRequest().authenticated()
                     .and()
                         .csrf()
