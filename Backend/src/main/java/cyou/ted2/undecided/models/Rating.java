@@ -12,5 +12,6 @@ public class Rating {
     private int votes;
     private Product product;
     private User user;
+    private Location location;
 
 }

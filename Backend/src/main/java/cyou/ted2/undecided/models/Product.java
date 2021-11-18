@@ -4,8 +4,7 @@ import java.util.List;
 
 public class Product {
 
-    private String id, name, brand;
+    private String id, name, brand, description, officialImage;
     private List<String> types;
-    private List<Label> labels;
-    private Location location;
+    private List<String> labels;
 }
