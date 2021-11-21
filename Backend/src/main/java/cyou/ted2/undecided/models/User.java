@@ -5,9 +5,10 @@ import java.time.LocalDate;
 
 public class User {
 
-    private String name, username,
+    private String id, name, username,
             email, password, usertype,
             description, profileImage, language;
     private LocalDate birthdate, registerDate;
     private boolean verified, isDarkTheme;
+    private int ratingsNum, followerNum, followingNum;
 }
