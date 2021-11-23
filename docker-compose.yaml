@@ -14,14 +14,15 @@ services:
 #    volumes:
 #      - /srv/docker/spring/spring/UNDECIDED/target/UNDECIDED-0.1.jar:/undecided/undecided.jar
 #    command: "java -jar /undecided.jar"
-#    ports:
-#      - "8080:8080"
+    expose:
+     - "8080"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.apache.rule=PathPrefix(`/api/`)"
-    networks:
-      - web
-      - db
+#      - "traefik.http.routers.entrypoints=web"
+      - "traefik.http.routers.spring.rule=PathPrefix(`/api`)"
+#    networks:
+#      - web
+#      - db
 
   apache:
     image: ubuntu/apache2
@@ -35,9 +36,10 @@ services:
 #      - web
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.entrypoints=web"
-     depends_on:
-      - backend
+#      - "traefik.http.routers.entrypoints=apache"
+      - "traefik.http.routers.apache.rule=PathPrefix(`/`)"
+#     depends_on:
+#      - backend
 
   traefik:
     image: "traefik:v2.5"
@@ -46,10 +48,12 @@ services:
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:81"
+      - "--entrypoints.web.address=:80"
     ports:
       - "81:80"
       - "8889:8080"
+#    networks:
+#      - web
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
@@ -60,6 +64,6 @@ services:
 
 
 
-networks:
-  web:
-  db:
+#networks:
+#  web:
+#  db:
