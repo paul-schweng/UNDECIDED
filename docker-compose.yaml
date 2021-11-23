@@ -17,9 +17,11 @@ services:
     expose:
      - "8080"
     labels:
+      - "traefik.docker.network=default"
+#      - "traefik.http.routers.entrypoints=spring"
+      - "traefik.http.routers.spring.rule=PathPrefix(`/api/`)"
       - "traefik.enable=true"
-#      - "traefik.http.routers.entrypoints=web"
-      - "traefik.http.routers.spring.rule=PathPrefix(`/api`)"
+      - "traefik.port=8080"
 #    networks:
 #      - web
 #      - db
@@ -35,9 +37,11 @@ services:
 #    networks:
 #      - web
     labels:
+      - "traefik.docker.network=default"
+      - "traefik.http.routers.apache.rule=Path(`/{site:(.*)}`)"
       - "traefik.enable=true"
 #      - "traefik.http.routers.entrypoints=apache"
-      - "traefik.http.routers.apache.rule=PathPrefix(`/`)"
+      - "traefik.port=80"
 #     depends_on:
 #      - backend
 
@@ -48,7 +52,8 @@ services:
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
+#      - "--entrypoints.web.address=:80"
+#      - "--entrypoints.spring.address=:8080"
     ports:
       - "81:80"
       - "8889:8080"
