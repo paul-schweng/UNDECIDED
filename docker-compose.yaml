@@ -19,7 +19,7 @@ services:
     labels:
       - "traefik.docker.network=default"
 #      - "traefik.http.routers.entrypoints=spring"
-      - "traefik.http.routers.spring.rule=PathPrefix(`/api/`)"
+      - "traefik.http.routers.spring.rule=Host(`api.undecided`)"
       - "traefik.enable=true"
       - "traefik.port=8080"
 #    networks:
@@ -32,15 +32,15 @@ services:
     volumes:
       - /srv/docker/angular/UNDECIDED-UI/apache.conf:/etc/apache2/sites-enabled/001-page.conf
       - /srv/docker/angular/UNDECIDED-UI/dist/UI:/var/www/html
-#    ports:
-#      - "81:80"
+    expose:
+      - "80"
 #    networks:
 #      - web
     labels:
       - "traefik.docker.network=default"
-      - "traefik.http.routers.apache.rule=Path(`/{site:(.*)}`)"
+      - "traefik.http.routers.apache.rule=Host(`undecided`)"
       - "traefik.enable=true"
-#      - "traefik.http.routers.entrypoints=apache"
+      - "traefik.http.routers.entrypoints=apache"
       - "traefik.port=80"
 #     depends_on:
 #      - backend
@@ -52,7 +52,7 @@ services:
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-#      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.address=:80"
 #      - "--entrypoints.spring.address=:8080"
     ports:
       - "81:80"
@@ -65,7 +65,6 @@ services:
 
 #  db:
 #    image:
-
 
 
 
