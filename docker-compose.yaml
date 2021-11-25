@@ -19,7 +19,8 @@ services:
     labels:
       - "traefik.docker.network=default"
 #      - "traefik.http.routers.entrypoints=spring"
-      - "traefik.http.routers.spring.rule=Host(`api.undecided`)"
+      - "traefik.http.routers.spring.rule=Host(`undecided`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.spring.priority=100"
       - "traefik.enable=true"
       - "traefik.port=8080"
 #    networks:
@@ -39,6 +40,7 @@ services:
     labels:
       - "traefik.docker.network=default"
       - "traefik.http.routers.apache.rule=Host(`undecided`)"
+      - "traefik.http.routers.apache.priority=50"
       - "traefik.enable=true"
       - "traefik.http.routers.entrypoints=apache"
       - "traefik.port=80"
