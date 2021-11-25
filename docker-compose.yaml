@@ -16,8 +16,8 @@ services:
     #    command: "java -jar /undecided.jar"
     expose:
       - "8080"
-      networks:
-        - web
+    networks:
+      - web
     labels:
 #      - "traefik.docker.network=default"
       #      - "traefik.http.routers.entrypoints=spring"
@@ -37,8 +37,8 @@ services:
       - /srv/docker/angular/UNDECIDED-UI/dist/UI:/var/www/html
     expose:
       - "80"
-        networks:
-          - web
+    networks:
+      - web
     labels:
 #      - "traefik.docker.network=default"
       - "traefik.http.routers.apache.rule=PathPrefix(`/`)"
@@ -60,9 +60,9 @@ services:
     #      - "--entrypoints.spring.address=:8080"
     ports:
       - "81:80"
-      networks:
-        - web
       - "8889:8080"
+    networks:
+      - web
     #    networks:
     #      - web
     volumes:
