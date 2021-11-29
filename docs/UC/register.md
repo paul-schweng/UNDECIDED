@@ -32,6 +32,7 @@ In other words: A guest becomes a (business) user by creating an account.
 
 ### 2.1.3 Narrative
 (n/a)
+
 ## 2.2 Alternative Flows
 (n/a)
 
