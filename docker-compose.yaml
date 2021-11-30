@@ -1,4 +1,4 @@
-version:'3'
+version: '3'
 
 services: 
 
@@ -9,18 +9,28 @@ services:
     ports:
       - "8881:8080"
     labels:
-      - "traefik.http.routers.backend.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.rule=PathPrefix(`/auth`)"
+      - "traefik.http.routers.backend.priority=5"
+    depends_on:
+      - traefik
 
 
   apache:
-    image: ubuntu/apache2
+    build: /srv/docker/angular/UNDECIDED-UI/
+    image: apache
+#    command:
+#       - "cat /etc/apache2/sites-enabled/000-default.conf"
+#       - "service apache2 restart"
     volumes:
-      - /srv/docker/angular/UNDECIDED-UI/apache.conf:/etc/apache2/sites-enabled/001-page.conf
-      - /srv/docker/angular/UNDECIDED-UI/dist/UI
-    ports:
-      - "80:80"
+       - /srv/docker/angular/UNDECIDED-UI/apache.conf:/etc/apache2/sites-enabled/000-default.conf
+       - /srv/docker/angular/UNDECIDED-UI/dist/UI:/var/www/html
+    expose:
+      - "80"
     labels:
-      - "traefik.http.routers.apache.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.apache.rule=Host(`undecided.ted2.cyou`)"
+      - "traefik.http.routers.apache.priority=1"
+    depends_on:
+      - backend
 
   traefik:
     image: "traefik:v2.5"
@@ -31,4 +41,5 @@ services:
       - "81:80"
       - "8889:8080"
     volumes:
+
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
