@@ -1,0 +1,80 @@
+version: '3.9'
+
+services:
+
+
+  backend:
+    build: .
+    container_name: spring
+    image: spring
+    #      context: /srv/docker/spring/UNDECIDED
+    #      args:
+    #        version: 0.1
+    #    working_dir: /undecided
+    #    volumes:
+    #      - /srv/docker/spring/spring/UNDECIDED/target/UNDECIDED-0.1.jar:/undecided/undecided.jar
+    #    command: "java -jar /undecided.jar"
+    expose:
+      - "8080"
+    networks:
+      - web
+    labels:
+      - "traefik.docker.network=undecided_web"
+      #      - "traefik.http.routers.entrypoints=spring"
+      - "traefik.http.routers.spring.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.spring.priority=100"
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+#      networks:
+#        - web
+#      - db
+
+  apache:
+    image: ubuntu/apache2
+    container_name: apache
+    volumes:
+      - /srv/docker/angular/UNDECIDED-UI/apache.conf:/etc/apache2/sites-enabled/001-page.conf
+      - /srv/docker/angular/UNDECIDED-UI/dist/UI:/var/www/html
+    expose:
+      - "80"
+    networks:
+      - web
+    labels:
+      - "traefik.docker.network=undecided_web"
+      - "traefik.http.routers.apache.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.apache.priority=50"
+      - "traefik.enable=true"
+#      - "traefik.http.routers.entrypoints=apache"
+      - "traefik.port=80"
+  #     depends_on:
+  #      - backend
+
+  traefik:
+    image: "traefik:v2.5"
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+#      - "--docker.network=web"
+    #      - "--entrypoints.spring.address=:8080"
+    ports:
+      - "81:80"
+      - "8889:8080"
+#    networks:
+#      - web
+    #    networks:
+    #      - web
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+#  db:
+#    image:
+
+
+
+networks:
+  web:
+    external: true
+#  db:
