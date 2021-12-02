@@ -157,8 +157,7 @@ Generally there are two types of users for UNDECIDED. People all over the world 
 - [3.1.18 verify](#3118-verify)
 
 ### 3.1.1 register
-In the authentification process a guest has the possibility to register to get access to the website's functionalities. <br/>
-In other words: A guest becomes a (business) user by creating an account.
+[use case specification](UC/register.md)
 
 ### 3.1.2 login
 The website will provide the possibility to log in. This will also make the usability easier when a user wants to manage his sessions, post or join a session because they don't have to enter their mail address every time.
