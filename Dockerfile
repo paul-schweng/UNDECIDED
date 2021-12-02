@@ -2,7 +2,8 @@
 # 'docker build -t undecided/backend .'
 
 #backend
-FROM arm64v7/openjdk:11
-ARG JAR_FILE=backend/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM openjdk:11
+ARG version
+WORKDIR /usr/src/undecided
+COPY target/UNDECIDED-0.1.jar /undecided.jar
+ENTRYPOINT ["java","-jar","/undecided.jar"]
