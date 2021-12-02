@@ -17,9 +17,9 @@ I want to be able to change my profile attributes.
 	Scenario: successfully changed profile attributes
 		When user changes any attributes
 		And user saves changes
+		And back to profile page
 		Then changes are sent to server
 		And DB is updated
-		And back to profile page
 		Then wait 1 second
 		And request user details from server
 		And update the user details in the client
