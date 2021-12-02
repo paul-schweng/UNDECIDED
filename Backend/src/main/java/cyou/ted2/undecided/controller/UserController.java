@@ -16,7 +16,7 @@ class UserController {
         this.repository = repository;
     }
 
-    @PostMapping("/email")
+    @PutMapping("/email")
     @ResponseBody
     User postNewEmail(@RequestBody String currentEmail, String newEmail) {
         User user = repository.findUserByEmail(currentEmail);

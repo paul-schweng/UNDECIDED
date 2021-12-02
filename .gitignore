@@ -54,3 +54,4 @@ build/
 ### VS Code ###
 .vscode/
 
+/Backend/src/main/java/cyou/ted2/undecided/environments/

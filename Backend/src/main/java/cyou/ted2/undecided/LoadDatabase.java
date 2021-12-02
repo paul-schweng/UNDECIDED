@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-//h2 database configuration for testing if controller works
+//h2 database.json configuration for testing if controller works
 @Configuration
 class LoadDatabase {
 
