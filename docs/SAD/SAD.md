@@ -57,7 +57,7 @@ as the Logical, Deployment, Implementation and Data Views.
 ## 2. Architectural Representation
 We are trying to implement according to the MVC pattern:
 
-![MVC structure]()
+![MVC structure](SAD-Overview.svg)
 
 ## 3. Architectural Goals and Constraints
 Beschreibung von Frontend als MVVM und Backend als MVC
