@@ -10,9 +10,9 @@ public class Rating {
     @Id
     @GeneratedValue
     private Long id;
-    private String description, image;
+    private String description;
     @ElementCollection
-    private List<String> types;
+    private List<String> types, images;
     @ElementCollection
     private List<Integer> labels;
     @OneToMany(cascade = CascadeType.ALL)
@@ -28,9 +28,9 @@ public class Rating {
     private Location location;
 
     public Rating(){}
-    public Rating(String description, String image, List<String> types, List<Integer> labels, List<User> friends, LocalDateTime timestamp, double stars, int voteNum, int commentNum, Product product, User user, Location location) {
+    public Rating(String description, List<String> images, List<String> types, List<Integer> labels, List<User> friends, LocalDateTime timestamp, double stars, int voteNum, int commentNum, Product product, User user, Location location) {
         this.description = description;
-        this.image = image;
+        this.images = images;
         this.types = types;
         this.labels = labels;
         this.friends = friends;
@@ -51,9 +51,6 @@ public class Rating {
         return description;
     }
 
-    public String getImage() {
-        return image;
-    }
 
     public List<String> getTypes() {
         return types;
@@ -103,9 +100,6 @@ public class Rating {
         this.description = description;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public void setTypes(List<String> types) {
         this.types = types;
@@ -152,7 +146,7 @@ public class Rating {
         return "Rating{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", image='" + image + '\'' +
+                ", image='" + images + '\'' +
                 ", types=" + types +
                 ", labels=" + labels +
                 ", friends=" + friends +
@@ -164,5 +158,13 @@ public class Rating {
                 ", user=" + user +
                 ", location=" + location +
                 '}';
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }

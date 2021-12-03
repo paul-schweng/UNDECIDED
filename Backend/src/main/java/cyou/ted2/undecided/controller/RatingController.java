@@ -4,6 +4,8 @@ import cyou.ted2.undecided.models.Rating;
 import cyou.ted2.undecided.repository.RatingRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api")
 class RatingController {
@@ -14,11 +16,17 @@ class RatingController {
         this.repository = repository;
     }
 
-    @GetMapping("/rating")
+    @GetMapping("/ratings")
     @ResponseBody
-    Iterable<Rating> getAllRatings() {
+    Iterable<Rating> getAllRatings(@RequestParam("filter") String filter) {
         repository.findAll().forEach(e -> System.out.println(e.toString()));
         return repository.findAll();
+    }
+
+    @GetMapping("/rating")
+    @ResponseBody
+    Optional<Rating> getRating(@RequestParam("id") String id) {
+        return repository.findById(Long.parseLong(id));
     }
 
     @PostMapping("/rating")

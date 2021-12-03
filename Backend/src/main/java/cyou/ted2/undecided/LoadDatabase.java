@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.List;
+
 //h2 database.json configuration for testing if controller works
 @Configuration
 class LoadDatabase {
@@ -22,7 +24,19 @@ class LoadDatabase {
     CommandLineRunner initDatabase(RatingRepository repository) {
 
         return args -> {
-            log.info("Preloading " + repository.save(new Rating("Test", "test", Collections.singletonList("test"), Collections.singletonList(1), Collections.singletonList(new User()), LocalDateTime.now(), 2.0, 1, 1, new Product(), new User(), new Location())));
+            log.info("Preloading " + repository.save(new Rating(
+                    "Test description",
+                    Collections.emptyList(),
+                    Collections.singletonList("test"),
+                    Collections.singletonList(1),
+                    Collections.singletonList(new User()),
+                    LocalDateTime.now(),
+                    2.0,
+                    1,
+                    1,
+                    new Product("TestProduct", "TestBrand"),
+                    new User(),
+                    new Location())));
         };
     }
 }
