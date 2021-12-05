@@ -40,9 +40,7 @@ This document describes the technical architecture of the UNDECIDED project, inc
 | MVC         | Model View Controller                  |
 | REST        | Representational state transfer        |
 | MVVM        | Model View ViewModel                   |
-| SRS         | Software Requirements Specification    |
 | UC          | Use Case                               |
-| VCS         | Version Control System                 |
 | n/a         | not applicable                         |
 
 ## 1.4 References
