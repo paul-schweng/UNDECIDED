@@ -40,9 +40,7 @@ This document describes the technical architecture of the UNDECIDED project, inc
 | MVC         | Model View Controller                  |
 | REST        | Representational state transfer        |
 | MVVM        | Model View ViewModel                   |
-| SRS         | Software Requirements Specification    |
 | UC          | Use Case                               |
-| VCS         | Version Control System                 |
 | n/a         | not applicable                         |
 
 ## 1.4 References
@@ -55,18 +53,18 @@ This document contains the Architectural Representation, Goals and Constraints a
 as the Logical, Deployment, Implementation and Data Views.
 
 # 2. Architectural Representation
-We are trying to implement according to the MVC pattern:
+We are trying to implement according to the MVC pattern:  
 ![MVC](MVC.png)
 
-In our project it looks like the following picture:
+In our project it looks like the following picture:  
 ![MVC structure](SAD-Overview.svg)
 
 # 3. Architectural Goals and Constraints
 As already mentioned our project follows the MVC architecure. By following the guidelines of this architecture we are able to generate clean code.
 
 ## Frontend
-The frontend is written in Typescript and we are using the Angular framework. By the seperation of components from 
-rest of the code angular allows us to stick to the MVVM pattern.
+The frontend is written in Typescript, HTML and CSS and we are using the Angular framework. By the seperation of components from the
+rest of the code Angular allows us to stick to the MVVM pattern.
 
 - Model: domain specific classes modeled after backend classes
 - View: components
@@ -74,10 +72,10 @@ rest of the code angular allows us to stick to the MVVM pattern.
 
 ## Backend
 The backend is written in Java and as a MVC tool we are using Spring Boot.
-For accounting we are using Spring Security. The backend offers multiple REST
-APIs which are accesed by our frontend.
+For accounting we are using Spring Security. The backend offers a REST
+API (Open API) which are accesed by our frontend.
 
-- Model domain specific classes
+- Model: domain specific classes
 - View: no view available
 - Controller: REST-Controller
 
@@ -99,7 +97,7 @@ The following image shows a UML diagram of our project whose elements are catego
 
 ### Controller
 #### Frontend
-Because it would be too unclear we only show some of our frontend controller:
+Due the controller view being very complex we decided to only show the following frontend controllers:
 
 ![controller-angular](controllerAngular.svg)
 
@@ -113,7 +111,7 @@ Because in Angular controller and view is not strictly seperated it's the same d
 ## 5.2 Architecturally Significant Design Packages
 
 # 6. Process View
-n/a
+(n/a)
 
 # 7. Deployment View
 (n/a)
@@ -127,7 +125,7 @@ Our database structure in model classes:
 ![Database](../ERM/ERM_1.svg)
 
 # 10. Size and Performance
-n/a
+(n/a)
 
 # 11. Quality/Metrics
-n/a
+(n/a)
