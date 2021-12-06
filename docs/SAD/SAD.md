@@ -110,9 +110,6 @@ Because it would be too unclear we only show some of our frontend controller:
 #### Frontend
 Because in Angular controller and view is not strictly seperated it's the same diagram as in the controller section.
 
-
-![MVC class diagram]()
-
 ## 5.2 Architecturally Significant Design Packages
 
 # 6. Process View
