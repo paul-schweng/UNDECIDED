@@ -38,8 +38,8 @@
       <sourceFolder url="file://$MODULE_DIR$/target/generated-test-sources/spring-aot/src/test/java" isTestSource="true" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/UI/dist" />
       <excludeFolder url="file://$MODULE_DIR$/UI/tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/libraries" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
