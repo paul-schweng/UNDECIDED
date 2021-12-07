@@ -13,7 +13,7 @@ services:
       - "traefik.http.routers.backend.rule=PathPrefix(`/auth`)"
       - "traefik.http.routers.backend.priority=5"
     depends_on:
-      - traefik
+      - db
 
 
   apache:
@@ -33,6 +33,17 @@ services:
       - "traefik.http.routers.apache.priority=1"
     depends_on:
       - backend
+
+  db:
+    image: "mariadb"
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./log:/var/log/mysql
+      - ./conf/my.cnf:/etc/mysql/my.conf
+    depends_on:
+      - traefik
 
   traefik:
     image: "traefik:v2.5"
