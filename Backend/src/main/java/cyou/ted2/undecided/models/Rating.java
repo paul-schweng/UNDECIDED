@@ -9,6 +9,7 @@ public class Rating {
 
     @Id
     @GeneratedValue
+    @Column(name = "ratingid")
     private Long id;
     private String description;
     @ElementCollection
@@ -20,11 +21,17 @@ public class Rating {
     private LocalDateTime timestamp;
     private double stars;
     private int voteNum, commentNum;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
+    @JoinColumn(name = "productid")
     private Product product;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
+    @JoinColumn(name = "userid")
     private User user;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
+    @JoinColumn(name = "locationid")
     private Location location;
 
     public Rating(){}

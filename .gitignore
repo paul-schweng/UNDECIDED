@@ -55,3 +55,4 @@ build/
 .vscode/
 
 /Backend/src/main/java/cyou/ted2/undecided/environments/
+/Backend/src/main/resources/application.properties

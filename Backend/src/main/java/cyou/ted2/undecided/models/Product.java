@@ -1,9 +1,6 @@
 package cyou.ted2.undecided.models;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -11,6 +8,7 @@ public class Product {
 
     @Id
     @GeneratedValue
+    @Column(name = "productid")
     private Long id;
     private String name, brand, description, officialImage;
     @ElementCollection
