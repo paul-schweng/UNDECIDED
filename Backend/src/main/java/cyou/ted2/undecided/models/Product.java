@@ -1,5 +1,7 @@
 package cyou.ted2.undecided.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class Product {
     @OneToMany
     private List<Type> types;
 
+    @JsonInclude
     @Transient
     private List<Integer> labels;
 

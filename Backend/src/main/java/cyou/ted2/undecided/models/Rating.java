@@ -1,5 +1,7 @@
 package cyou.ted2.undecided.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,6 +24,7 @@ public class Rating {
 
     private String labelList;
 
+    @JsonInclude
     @Transient
     private List<Integer> labels;
 
