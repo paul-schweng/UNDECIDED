@@ -11,10 +11,15 @@ public class Product {
     @Column(name = "productid")
     private Long id;
     private String name, brand, description, officialImage;
-    @ElementCollection
-    private List<String> types;
-    @ElementCollection
-    private List<String> labels;
+
+    @OneToMany
+    private List<Type> types;
+
+    @Transient
+    private List<Integer> labels;
+
+    private String labelList;
+
     private boolean verified;
 
     public String getName() {
@@ -49,19 +54,19 @@ public class Product {
         this.officialImage = officialImage;
     }
 
-    public List<String> getTypes() {
+    public List<Type> getTypes() {
         return types;
     }
 
-    public void setTypes(List<String> types) {
+    public void setTypes(List<Type> types) {
         this.types = types;
     }
 
-    public List<String> getLabels() {
+    public List<Integer> getLabels() {
         return labels;
     }
 
-    public void setLabels(List<String> labels) {
+    public void setLabels(List<Integer> labels) {
         this.labels = labels;
     }
 
@@ -80,4 +85,12 @@ public class Product {
     }
 
     public Product() { }
+
+    public String getLabelList() {
+        return labelList;
+    }
+
+    public void setLabelList(String labelList) {
+        this.labelList = labelList;
+    }
 }
