@@ -11,6 +11,7 @@ import java.util.Map;
 
 
 @RestController
+@RequestMapping("/auth")
 @CrossOrigin(origins="*", maxAge=3600)
 public class AuthenticationController extends SpringBootServletInitializer {
 
@@ -23,7 +24,7 @@ public class AuthenticationController extends SpringBootServletInitializer {
     }
 
 
-    @PostMapping("/auth/register")
+    @PostMapping("/register")
     public Map<String, Boolean> register(@RequestBody User user) throws InterruptedException {
         var map = new HashMap<String, Boolean>();
         if(userRepository.findUserByUsername(user.getUsername()) != null)
@@ -35,13 +36,13 @@ public class AuthenticationController extends SpringBootServletInitializer {
         return map;
     }
 
-    @GetMapping("/auth/login")
+    @GetMapping("/login")
     public Principal user(Principal user) {
         System.out.println(user + "login");
         return user;
     }
 
-    @GetMapping("/auth/user-available")
+    @GetMapping("/user-available")
     public Map<String, Boolean> existsUsername(@RequestParam String u) {
         var map = new HashMap<String, Boolean>();
         map.put("available", userRepository.findUserByUsername(u) == null);

@@ -4,7 +4,11 @@ import cyou.ted2.undecided.models.Rating;
 import cyou.ted2.undecided.models.User;
 import cyou.ted2.undecided.repository.RatingRepository;
 import cyou.ted2.undecided.repository.UserRepository;
+import cyou.ted2.undecided.tools.PasswordHashing;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.lang.reflect.Field;
 
 @RestController
 @RequestMapping("/api/user")
@@ -24,27 +28,32 @@ class UserController {
         return repository.save(user);
     }
 
-    /*@PutMapping("/password")
+    @PutMapping("/password")
     @ResponseBody
-    User putNewEmail(@RequestBody String currentPw, String newPw) {
-        User user = repository.findUserByPassword(currentPw); //TODO: userzuordnung?
-        user.setPassword(newPw);
-        return repository.save(user);
-    }*/
+    User putNewPassword(@RequestBody String currentPw, String newPw) {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        User user = repository.findUserById(userId);
+        if (PasswordHashing.hashPassword(currentPw).equals(user.getPassword())){
+            user.setPassword(PasswordHashing.hashPassword(newPw));
+            return repository.save(user);
+        }
+        return null; //later replace with exception
+    }
 
     @GetMapping()
     @ResponseBody
-    User getUser(){return null;}//TODO
+    User getUser(){
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        return repository.findUserById(userId);
+    }
 
     @PutMapping()
     @ResponseBody
-    User putUpdateUser(){return null;}//TODO
-
-
-
-
-
-
-
+    User putUpdateUser(@RequestBody User u) throws IllegalAccessException {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        User user = repository.findUserById(userId);
+        user.update(u);
+        return repository.save(user);
+    }
 
 }

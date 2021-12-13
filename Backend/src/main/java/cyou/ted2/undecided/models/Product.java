@@ -1,6 +1,8 @@
 package cyou.ted2.undecided.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import cyou.ted2.undecided.providers.MyGenerator;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,9 +11,10 @@ import java.util.List;
 public class Product {
 
     @Id
-    @GeneratedValue
-    @Column(name = "productid")
-    private Long id;
+    @GeneratedValue(generator = MyGenerator.generatorName)
+    @GenericGenerator(name = MyGenerator.generatorName, strategy = "cyou.ted2.undecided.providers.MyGenerator")
+    @Column(name = "productid", nullable = false)
+    private String id;
     private String name, brand, description, officialImage;
 
     @OneToMany
@@ -24,6 +27,14 @@ public class Product {
     private String labelList;
 
     private boolean verified;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -79,12 +90,6 @@ public class Product {
 
     public void setVerified(boolean verified) {
         this.verified = verified;
-    }
-
-    //TODO: remove this, just for testing
-    public Product(String name, String brand) {
-        this.name = name;
-        this.brand = brand;
     }
 
     public Product() { }

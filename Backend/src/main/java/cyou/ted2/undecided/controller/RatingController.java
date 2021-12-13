@@ -3,6 +3,7 @@ package cyou.ted2.undecided.controller;
 import cyou.ted2.undecided.models.Rating;
 import cyou.ted2.undecided.models.User;
 import cyou.ted2.undecided.repository.RatingRepository;
+import cyou.ted2.undecided.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,41 +13,41 @@ import java.util.Optional;
 @RequestMapping("/api")
 class RatingController {
 
-    private final RatingRepository repository;
+    private final RatingRepository ratingRepository;
+    private final UserRepository userRepository;
 
-    RatingController(RatingRepository repository) {
-        this.repository = repository;
+    RatingController(RatingRepository rRepository, UserRepository uRepository) {
+        this.ratingRepository = rRepository;
+        this.userRepository = uRepository;
     }
 
     @GetMapping("/ratings")
     @ResponseBody
-    Iterable<Rating> getAllRatings(@RequestParam("filter") String filter) {
-        repository.findAll().forEach(e -> System.out.println(e.toString()));
-        return repository.findAll();
+    Iterable<Rating> getAllRatingsByUser(@RequestParam("filter") String filter) {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        return ratingRepository.findAllByUserId(userId);
     }
 
     @GetMapping("/rating")
     @ResponseBody
     Optional<Rating> getRating(@RequestParam("id") String id) {
-        return repository.findById(Long.parseLong(id));
+        return ratingRepository.findById(id);
     }
 
     @PostMapping("/rating")
     @ResponseBody
         //json
     Rating newRating(@RequestBody Rating newRating) {
-       /* Long userId = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
-        User user = new User();
-        user.setId(userId);
+       String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        User user = userRepository.findUserById(userId);
         newRating.setUser(user);
-
-        */
-        return repository.save(newRating);
+        return ratingRepository.save(newRating);
     }
 
     @PutMapping("/rating")
     @ResponseBody
     Rating updateRating(@RequestBody Rating updatedRating) {
-        return repository.save(updatedRating);
+
+        return ratingRepository.save(updatedRating);
     }
 }

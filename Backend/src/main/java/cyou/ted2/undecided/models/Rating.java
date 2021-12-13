@@ -1,6 +1,8 @@
 package cyou.ted2.undecided.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import cyou.ted2.undecided.providers.MyGenerator;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,9 +12,10 @@ import java.util.List;
 public class Rating {
 
     @Id
-    @GeneratedValue
-    @Column(name = "ratingid")
-    private Long id;
+    @GeneratedValue(generator = MyGenerator.generatorName)
+    @GenericGenerator(name = MyGenerator.generatorName, strategy = "cyou.ted2.undecided.providers.MyGenerator")
+    @Column(name = "ratingid", nullable = false)
+    private String id;
     private String description;
 
     @OneToMany
@@ -34,15 +37,15 @@ public class Rating {
     private double stars;
     private int voteNum, commentNum;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "productid")
     private Product product;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userid")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "locationid")
     private Location location;
 
@@ -62,7 +65,7 @@ public class Rating {
         this.location = location;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -111,7 +114,7 @@ public class Rating {
         return location;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

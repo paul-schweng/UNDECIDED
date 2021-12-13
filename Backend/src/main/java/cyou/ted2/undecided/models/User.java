@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -18,7 +19,7 @@ public class User {
     @Id
     @GeneratedValue(generator = MyGenerator.generatorName)
     @GenericGenerator(name = MyGenerator.generatorName, strategy = "cyou.ted2.undecided.providers.MyGenerator")
-    @Column(name = "userid")
+    @Column(name = "userid", nullable = false)
     private String id;
     private String name, username,
             email, password, usertype,
@@ -154,5 +155,13 @@ public class User {
 
     public void setFollowingNum(int followingNum) {
         this.followingNum = followingNum;
+    }
+
+    public void update(User u) throws IllegalAccessException {
+        for (Field field : User.class.getDeclaredFields()) {
+            if(field.get(u) != null ){
+                field.set(this, field.get(u));
+            }
+        }
     }
 }
