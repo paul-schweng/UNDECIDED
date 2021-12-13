@@ -20,6 +20,7 @@ class LoadDatabase {
 
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
+    /*
     @Bean
     CommandLineRunner initDatabase(RatingRepository repository) {
 
@@ -39,4 +40,6 @@ class LoadDatabase {
                     new Location())));
         };
     }
+
+     */
 }
