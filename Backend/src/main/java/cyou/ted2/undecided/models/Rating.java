@@ -1,5 +1,7 @@
 package cyou.ted2.undecided.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,26 +11,43 @@ public class Rating {
 
     @Id
     @GeneratedValue
+    @Column(name = "ratingid")
     private Long id;
     private String description;
+
+    @OneToMany
+    private List<Type> types;
+
     @ElementCollection
-    private List<String> types, images;
-    @ElementCollection
+    private List<String> images;
+
+
+    private String labelList;
+
+    @JsonInclude
+    @Transient
     private List<Integer> labels;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<User> friends;
     private LocalDateTime timestamp;
     private double stars;
     private int voteNum, commentNum;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
+    @JoinColumn(name = "productid")
     private Product product;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
+    @JoinColumn(name = "userid")
     private User user;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
+    @JoinColumn(name = "locationid")
     private Location location;
 
     public Rating(){}
-    public Rating(String description, List<String> images, List<String> types, List<Integer> labels, List<User> friends, LocalDateTime timestamp, double stars, int voteNum, int commentNum, Product product, User user, Location location) {
+    public Rating(String description, List<String> images, List<Type> types, List<Integer> labels, List<User> friends, LocalDateTime timestamp, double stars, int voteNum, int commentNum, Product product, User user, Location location) {
         this.description = description;
         this.images = images;
         this.types = types;
@@ -52,7 +71,7 @@ public class Rating {
     }
 
 
-    public List<String> getTypes() {
+    public List<Type> getTypes() {
         return types;
     }
 
@@ -101,7 +120,7 @@ public class Rating {
     }
 
 
-    public void setTypes(List<String> types) {
+    public void setTypes(List<Type> types) {
         this.types = types;
     }
 
@@ -166,5 +185,13 @@ public class Rating {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public String getLabelList() {
+        return labelList;
+    }
+
+    public void setLabelList(String labelList) {
+        this.labelList = labelList;
     }
 }

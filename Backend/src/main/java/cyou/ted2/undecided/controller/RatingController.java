@@ -1,7 +1,9 @@
 package cyou.ted2.undecided.controller;
 
 import cyou.ted2.undecided.models.Rating;
+import cyou.ted2.undecided.models.User;
 import cyou.ted2.undecided.repository.RatingRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -33,6 +35,12 @@ class RatingController {
     @ResponseBody
         //json
     Rating newRating(@RequestBody Rating newRating) {
+       /* Long userId = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        User user = new User();
+        user.setId(userId);
+        newRating.setUser(user);
+
+        */
         return repository.save(newRating);
     }
 

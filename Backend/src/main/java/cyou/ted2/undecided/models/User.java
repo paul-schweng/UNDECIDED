@@ -1,29 +1,38 @@
 package cyou.ted2.undecided.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import cyou.ted2.undecided.providers.MyGenerator;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(generator = MyGenerator.generatorName)
+    @GenericGenerator(name = MyGenerator.generatorName, strategy = "cyou.ted2.undecided.providers.MyGenerator")
+    @Column(name = "userid")
+    private String id;
     private String name, username,
             email, password, usertype,
             description, profileImage, language;
-    private LocalDate birthdate, registerDate;
+    private LocalDate birthdate;
+    private LocalDate registerDate;
     private boolean verified, isDarkTheme;
     private int ratingsNum, followerNum, followingNum;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

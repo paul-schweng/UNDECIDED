@@ -2,5 +2,11 @@
 <project version="4">
   <component name="JpaBuddyIdeaProjectConfig">
     <option name="defaultUnitInitialized" value="true" />
+    <reUseDbSnapshotConnections>
+      <dbConnection id="d89351f2-0604-4e48-bab1-d705f4998864" />
+    </reUseDbSnapshotConnections>
+    <option name="reIgnoreSlowDbConnections">
+      <ignoreDs id="d89351f2-0604-4e48-bab1-d705f4998864" />
+    </option>
   </component>
 </project>
