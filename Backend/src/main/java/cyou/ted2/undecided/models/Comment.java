@@ -1,11 +1,17 @@
 package cyou.ted2.undecided.models;
 
+import cyou.ted2.undecided.providers.MyGenerator;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 public class Comment {
     @Id
+    @GeneratedValue(generator = MyGenerator.generatorName)
+    @GenericGenerator(name = MyGenerator.generatorName, strategy = "cyou.ted2.undecided.providers.MyGenerator")
+    @Column(name = "commentid", nullable = false)
     private String id;
     private String content;
     @ManyToOne

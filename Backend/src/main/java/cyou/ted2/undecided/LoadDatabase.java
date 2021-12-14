@@ -1,8 +1,5 @@
 package cyou.ted2.undecided;
-import cyou.ted2.undecided.models.Location;
-import cyou.ted2.undecided.models.Product;
-import cyou.ted2.undecided.models.Rating;
-import cyou.ted2.undecided.models.User;
+import cyou.ted2.undecided.models.*;
 import cyou.ted2.undecided.repository.RatingRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +17,7 @@ class LoadDatabase {
 
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
-    /*
+/*
     @Bean
     CommandLineRunner initDatabase(RatingRepository repository) {
 
@@ -28,7 +25,7 @@ class LoadDatabase {
             log.info("Preloading " + repository.save(new Rating(
                     "Test description",
                     Collections.emptyList(),
-                    Collections.singletonList("test"),
+                    Collections.singletonList(new Type(1, "test")),
                     Collections.singletonList(1),
                     Collections.singletonList(new User()),
                     LocalDateTime.now(),
@@ -39,7 +36,7 @@ class LoadDatabase {
                     new User(),
                     new Location())));
         };
-    }
+    }*/
 
-     */
+
 }
