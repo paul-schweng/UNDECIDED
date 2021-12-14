@@ -47,6 +47,8 @@ class RatingController {
     @PutMapping("/rating")
     @ResponseBody
     Rating updateRating(@RequestBody Rating updatedRating) {
+        Rating rating = ratingRepository.findById(updatedRating.getId()).get();
+        rating.update(updatedRating);
 
         return ratingRepository.save(updatedRating);
     }

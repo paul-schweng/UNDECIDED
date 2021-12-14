@@ -14,20 +14,28 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity
-public class User {
+public class User extends Model{
 
     @Id
     @GeneratedValue(generator = MyGenerator.generatorName)
     @GenericGenerator(name = MyGenerator.generatorName, strategy = "cyou.ted2.undecided.providers.MyGenerator")
     @Column(name = "userid", nullable = false)
-    private String id;
-    private String name, username,
+    protected String id;
+    protected String name, username,
             email, password, usertype,
             description, profileImage, language;
-    private LocalDate birthdate;
-    private LocalDate registerDate;
-    private boolean verified, isDarkTheme;
-    private int ratingsNum, followerNum, followingNum;
+    protected LocalDate birthdate;
+    protected LocalDate registerDate;
+    protected boolean verified, isDarkTheme;
+    protected int ratingsNum, followerNum, followingNum, bannerImage;
+
+    public int getBannerImage() {
+        return bannerImage;
+    }
+
+    public void setBannerImage(int bannerImage) {
+        this.bannerImage = bannerImage;
+    }
 
     public String getId() {
         return id;
@@ -157,11 +165,4 @@ public class User {
         this.followingNum = followingNum;
     }
 
-    public void update(User u) throws IllegalAccessException {
-        for (Field field : User.class.getDeclaredFields()) {
-            if(field.get(u) != null ){
-                field.set(this, field.get(u));
-            }
-        }
-    }
 }

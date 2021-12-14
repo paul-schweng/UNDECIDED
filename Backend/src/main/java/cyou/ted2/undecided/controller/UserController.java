@@ -49,7 +49,7 @@ class UserController {
 
     @PutMapping()
     @ResponseBody
-    User putUpdateUser(@RequestBody User u) throws IllegalAccessException {
+    User putUpdateUser(@RequestBody User u) {
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         User user = repository.findUserById(userId);
         user.update(u);

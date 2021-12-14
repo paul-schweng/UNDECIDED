@@ -14,19 +14,19 @@ public class Product {
     @GeneratedValue(generator = MyGenerator.generatorName)
     @GenericGenerator(name = MyGenerator.generatorName, strategy = "cyou.ted2.undecided.providers.MyGenerator")
     @Column(name = "productid", nullable = false)
-    private String id;
-    private String name, brand, description, officialImage;
+    protected String id;
+    protected String name, brand, description, officialImage;
 
     @OneToMany
-    private List<Type> types;
+    protected List<Type> types;
 
     @JsonInclude
     @Transient
-    private List<Integer> labels;
+    protected List<Integer> labels;
 
-    private String labelList;
+    protected String labelList;
 
-    private boolean verified;
+    protected boolean verified;
 
     public String getId() {
         return id;
