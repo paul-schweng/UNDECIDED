@@ -26,9 +26,6 @@ public class Rating extends Model{
     @OneToMany
     protected List<Type> types;
 
-    @ElementCollection
-    protected List<String> images;
-
     @Column(name = "labels")
     @JsonIgnore
     protected String labelList;
@@ -56,20 +53,6 @@ public class Rating extends Model{
     @JoinColumn(name = "locationid")
     protected Location location;
 
-    public Rating(){}
-    public Rating(String description, List<String> images, List<Type> types, List<Integer> labels, List<User> friends, LocalDateTime timestamp, double stars, int voteNum, int commentNum, Product product, User user, Location location) {
-        this.description = description;
-        this.images = images;
-        this.types = types;
-        this.friends = friends;
-        this.timestamp = timestamp;
-        this.stars = stars;
-        this.voteNum = voteNum;
-        this.commentNum = commentNum;
-        this.product = product;
-        this.user = user;
-        this.location = location;
-    }
 
     public String getId() {
         return id;
@@ -169,7 +152,6 @@ public class Rating extends Model{
         return "Rating{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", image='" + images + '\'' +
                 ", types=" + types +
                 ", labels=" + labels +
                 ", friends=" + friends +
@@ -183,13 +165,6 @@ public class Rating extends Model{
                 '}';
     }
 
-    public List<String> getImages() {
-        return images;
-    }
-
-    public void setImages(List<String> images) {
-        this.images = images;
-    }
 
     public String getLabelList() {
         if(labelList == null && labels != null)
