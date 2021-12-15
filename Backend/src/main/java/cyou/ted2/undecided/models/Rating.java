@@ -34,12 +34,11 @@ public class Rating extends Model{
     @JsonInclude
     protected List<Integer> labels;
 
-
     @OneToMany(cascade = CascadeType.ALL)
     protected List<User> friends;
     protected LocalDateTime timestamp;
     protected double stars;
-    protected int voteNum, commentNum;
+    protected int voteNum, commentNum, imageNum;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "productid")
@@ -114,6 +113,13 @@ public class Rating extends Model{
         this.types = types;
     }
 
+    public int getImageNum() {
+        return imageNum;
+    }
+
+    public void setImageNum(int imageNum) {
+        this.imageNum = imageNum;
+    }
 
     public void setFriends(List<User> friends) {
         this.friends = friends;
