@@ -9,8 +9,7 @@ services:
     ports:
       - "8881:8080"
     labels:
-      - "traefik.http.routers.backend.rule=PathPrefix(`/api`)"
-      - "traefik.http.routers.backend.rule=PathPrefix(`/auth`)"
+      - "traefik.http.routers.backend.rule=PathPrefix(`/auth`) || PathPrefix(`/api`)"
       - "traefik.http.routers.backend.priority=5"
     depends_on:
       - traefik
