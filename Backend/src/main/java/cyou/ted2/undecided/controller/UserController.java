@@ -49,11 +49,16 @@ class UserController {
 
     @PutMapping()
     @ResponseBody
-    User putUpdateUser(@RequestBody User u) {
+    User updateUser(@RequestBody User u) {
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         User user = repository.findUserById(userId);
         user.update(u);
         return repository.save(user);
+    }
+
+    @DeleteMapping
+    public void deleteUser(){
+
     }
 
 }

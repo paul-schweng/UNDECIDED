@@ -52,4 +52,9 @@ class RatingController {
 
         return ratingRepository.save(updatedRating);
     }
+
+    @DeleteMapping("/rating")
+    public void deleteRating(@RequestParam String id) {
+
+    }
 }
