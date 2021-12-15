@@ -13,6 +13,6 @@ public class MyGenerator implements IdentifierGenerator {
 
     @Override
     public Serializable generate(SharedSessionContractImplementor sharedSessionContractImplementor, Object object) throws HibernateException {
-        return UUID.randomUUID().toString().replace("-", "");
+        return UUID.randomUUID().toString().replace("-", "").substring(0,16);
     }
 }

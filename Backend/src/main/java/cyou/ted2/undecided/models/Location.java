@@ -1,21 +1,25 @@
 package cyou.ted2.undecided.models;
 
+import cyou.ted2.undecided.providers.MyGenerator;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
 public class Location {
 
     @Id
-    @GeneratedValue
-    @Column(name = "locationid")
-    private Long id;
+    @GeneratedValue(generator = MyGenerator.generatorName)
+    @GenericGenerator(name = MyGenerator.generatorName, strategy = "cyou.ted2.undecided.providers.MyGenerator")
+    @Column(name = "locationid", nullable = false)
+    private String id;
     private String name, country, zip, city, street, houseNumber;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

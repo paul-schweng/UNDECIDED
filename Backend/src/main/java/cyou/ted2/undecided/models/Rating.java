@@ -1,68 +1,60 @@
 package cyou.ted2.undecided.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import cyou.ted2.undecided.providers.MyGenerator;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-public class Rating {
+public class Rating extends Model{
 
     @Id
-    @GeneratedValue
-    @Column(name = "ratingid")
-    private Long id;
-    private String description;
+    @GeneratedValue(generator = MyGenerator.generatorName)
+    @GenericGenerator(name = MyGenerator.generatorName, strategy = "cyou.ted2.undecided.providers.MyGenerator")
+    @Column(name = "ratingid", nullable = false)
+    protected String id;
+    protected String description;
 
     @OneToMany
-    private List<Type> types;
+    protected List<Type> types;
 
-    @ElementCollection
-    private List<String> images;
+    @Column(name = "labels")
+    @JsonIgnore
+    protected String labelList;
 
-
-    private String labelList;
-
-    @JsonInclude
     @Transient
-    private List<Integer> labels;
+    @JsonInclude
+    protected List<Integer> labels;
+
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<User> friends;
-    private LocalDateTime timestamp;
-    private double stars;
-    private int voteNum, commentNum;
+    protected List<User> friends;
+    protected LocalDateTime timestamp;
+    protected double stars;
+    protected int voteNum, commentNum;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "productid")
-    private Product product;
+    protected Product product;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userid")
-    private User user;
+    protected User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "locationid")
-    private Location location;
+    protected Location location;
 
-    public Rating(){}
-    public Rating(String description, List<String> images, List<Type> types, List<Integer> labels, List<User> friends, LocalDateTime timestamp, double stars, int voteNum, int commentNum, Product product, User user, Location location) {
-        this.description = description;
-        this.images = images;
-        this.types = types;
-        this.labels = labels;
-        this.friends = friends;
-        this.timestamp = timestamp;
-        this.stars = stars;
-        this.voteNum = voteNum;
-        this.commentNum = commentNum;
-        this.product = product;
-        this.user = user;
-        this.location = location;
-    }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -75,9 +67,7 @@ public class Rating {
         return types;
     }
 
-    public List<Integer> getLabels() {
-        return labels;
-    }
+
 
     public List<User> getFriends() {
         return friends;
@@ -86,6 +76,7 @@ public class Rating {
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
+
 
     public double getStars() {
         return stars;
@@ -111,7 +102,7 @@ public class Rating {
         return location;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -119,14 +110,10 @@ public class Rating {
         this.description = description;
     }
 
-
     public void setTypes(List<Type> types) {
         this.types = types;
     }
 
-    public void setLabels(List<Integer> labels) {
-        this.labels = labels;
-    }
 
     public void setFriends(List<User> friends) {
         this.friends = friends;
@@ -165,7 +152,6 @@ public class Rating {
         return "Rating{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", image='" + images + '\'' +
                 ", types=" + types +
                 ", labels=" + labels +
                 ", friends=" + friends +
@@ -179,19 +165,25 @@ public class Rating {
                 '}';
     }
 
-    public List<String> getImages() {
-        return images;
-    }
-
-    public void setImages(List<String> images) {
-        this.images = images;
-    }
 
     public String getLabelList() {
+        if(labelList == null && labels != null)
+            labelList = labels.toString();
         return labelList;
     }
 
     public void setLabelList(String labelList) {
         this.labelList = labelList;
+    }
+
+    public List<Integer> getLabels() throws JsonProcessingException {
+        if(labels == null)
+            return new ObjectMapper().readValue(labelList, new TypeReference<List<Integer>>(){});
+        return labels;
+    }
+
+    public void setLabels(List<Integer> labels) {
+        this.labels = labels;
+        this.labelList = labels.toString();
     }
 }

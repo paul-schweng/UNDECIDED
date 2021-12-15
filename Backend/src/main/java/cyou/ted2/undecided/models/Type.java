@@ -12,4 +12,13 @@ public class Type {
     @Id
     String label;
     static List<Type> types;
+
+    public Type(int count, String label) {
+        this.count = count;
+        this.label = label;
+    }
+
+    public Type() {
+
+    }
 }

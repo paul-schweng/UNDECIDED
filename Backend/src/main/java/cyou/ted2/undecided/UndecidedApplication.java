@@ -40,7 +40,7 @@ public class UndecidedApplication extends SpringBootServletInitializer {
         SpringApplication.run(UndecidedApplication.class, args);
     }
 
-
+/*
     @RequestMapping("/api/greeting")
     public Map<String,Object> home() throws InterruptedException {
         Map<String,Object> model = new HashMap<>();
@@ -55,6 +55,8 @@ public class UndecidedApplication extends SpringBootServletInitializer {
         System.out.println(user);
         return user;
     }
+
+ */
 
     @Configuration
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
