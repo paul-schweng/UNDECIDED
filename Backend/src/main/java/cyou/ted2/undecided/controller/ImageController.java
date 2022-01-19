@@ -33,12 +33,16 @@ public class ImageController {
     @PostMapping("/rating")
     public ResponseEntity postRatingImages(@RequestBody MultipartFile file, @RequestParam("rating") String ratingId, @RequestParam("index") String index) throws IOException{
         Rating rating = ratingRepository.findRatingById(ratingId);
-        int imageIndex = Integer.parseInt(index);
-        if (imageIndex > 4) {
-            return new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
+        try {
+            int imageIndex = Integer.parseInt(index);
+            if (imageIndex > 4) {
+                return new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
+            }
+        }catch(NumberFormatException e){
+            return  new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
         }
 
-        File imageFile = new File(PATH_TO_IMAGES + "ratings/" + ratingId + "-" + imageIndex + ".jpg");
+        File imageFile = new File(PATH_TO_IMAGES + "ratings/" + ratingId + "-" + index + ".jpg");
         if(!imageFile.exists()){
             rating.setImageNum(rating.getImageNum() + 1);
             ratingRepository.save(rating);
