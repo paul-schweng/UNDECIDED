@@ -47,6 +47,12 @@ class UserController {
         return repository.findUserById(userId);
     }
 
+    @GetMapping(value="/u/{username}")
+    @ResponseBody
+    User getUser(@PathVariable String username){
+        return repository.findUserByUsername(username);
+    }
+
     @PutMapping()
     @ResponseBody
     User updateUser(@RequestBody User u) {
