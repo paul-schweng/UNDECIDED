@@ -34,7 +34,7 @@ public class Rating extends Model{
     @JsonInclude
     protected List<Integer> labels;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     protected List<User> friends;
     protected LocalDateTime timestamp;
     protected double stars;
