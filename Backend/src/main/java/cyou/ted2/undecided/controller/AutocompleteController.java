@@ -23,7 +23,7 @@ public class AutocompleteController {
     @PostMapping("/friend")
     List<User> getFriends(@RequestBody Autocomplete autocomplete) {
         System.out.println(autocomplete.input);
-        return userRepository.findByUsernameContainingOrNameContaining(autocomplete.input, autocomplete.input);
+        return userRepository.findByUsernameContainingOrNameContaining(autocomplete.input, autocomplete.input); //TODO: remove critical data (email...)
     }
 
     @PostMapping("/type")
