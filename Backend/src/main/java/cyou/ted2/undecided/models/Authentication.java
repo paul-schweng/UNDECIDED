@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 public class Authentication extends Model{
@@ -15,7 +15,7 @@ public class Authentication extends Model{
     @ManyToOne
     @JoinColumn(name = "userid")
     protected User user;
-    protected LocalDateTime lastLogin;
+    protected ZonedDateTime lastLogin;
     protected String ip;
 
     public String getSession() {
@@ -34,11 +34,11 @@ public class Authentication extends Model{
         this.user = user;
     }
 
-    public LocalDateTime getLastLogin() {
+    public ZonedDateTime getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(LocalDateTime lastLogin) {
+    public void setLastLogin(ZonedDateTime lastLogin) {
         this.lastLogin = lastLogin;
     }
 
