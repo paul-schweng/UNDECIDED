@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 @RestController
@@ -23,7 +24,13 @@ public class AutocompleteController {
     @PostMapping("/friend")
     List<User> getFriends(@RequestBody Autocomplete autocomplete) {
         System.out.println(autocomplete.input);
-        return userRepository.findByUsernameContainingOrNameContaining(autocomplete.input, autocomplete.input); //TODO: remove critical data (email...)
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        List<User> users = userRepository.findByUsernameContainingOrNameContaining(autocomplete.input, autocomplete.input); //TODO: remove critical data (email...)
+
+        users.removeIf(u -> Objects.equals(u.getId(), userId));
+        int usersNum = 11;
+        int toIndex = Math.min(users.size(), usersNum);
+        return users.subList(0, toIndex);
     }
 
     @PostMapping("/type")
