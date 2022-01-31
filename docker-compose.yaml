@@ -26,13 +26,8 @@ services:
       - /srv/docker/angular/UNDECIDED-UI/apache.conf:/etc/apache2/sites-enabled/000-default.conf
       - /srv/docker/angular/UNDECIDED-UI/dist/UI:/var/www/html
       - /srv/docker/angular/UNDECIDED-UI/.htaccess:/var/www/html/.htaccess
-<<<<<<< HEAD
     ports:
       - "8081:80"
-=======
-    expose:
-      - "80"
->>>>>>> eb22b61a475ca7979657cce026f3f645561b3a3a
     labels:
       - "traefik.http.routers.apache.rule=Host(`undecided.ted2.cyou`)"
       - "traefik.http.routers.apache.priority=1"
@@ -53,15 +48,15 @@ services:
   #    networks:
   #      - db
 
-  traefik:
-    image: "traefik:v2.5"
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-    ports:
-      - "81:80"
-      - "8889:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+#  traefik:
+#    image: "traefik:v2.5"
+#    command:
+#      - "--api.insecure=true"
+#      - "--providers.docker=true"
+#    ports:
+#      - "81:80"
+#      - "8889:8080"
+#    volumes:
+#      - "/var/run/docker.sock:/var/run/docker.sock:ro"
 #networks:
 #  db:
