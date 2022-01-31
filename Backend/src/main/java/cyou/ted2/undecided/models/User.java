@@ -26,6 +26,7 @@ public class User extends Model{
             email, password, usertype,
             description, profileImage, language;
     protected ZonedDateTime birthdate;
+    @Column(columnDefinition = "datetime default NOW()")
     protected ZonedDateTime registerDate;
     protected boolean verified, isDarkTheme;
     protected int ratingsNum, followerNum, followingNum, bannerImage;
