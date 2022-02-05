@@ -1,23 +1,33 @@
 package cyou.ted2.undecided.controller;
 
+import cyou.ted2.undecided.models.Following;
+import cyou.ted2.undecided.models.FollowingPK;
 import cyou.ted2.undecided.models.Rating;
 import cyou.ted2.undecided.models.User;
+import cyou.ted2.undecided.repository.FollowerRepository;
 import cyou.ted2.undecided.repository.RatingRepository;
 import cyou.ted2.undecided.repository.UserRepository;
 import cyou.ted2.undecided.tools.PasswordHashing;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Field;
+import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
 class UserController {
 
     private final UserRepository repository;
+    private final FollowerRepository followerRepository;
 
-    UserController(UserRepository repository) {
+    UserController(UserRepository repository, FollowerRepository followerRepository) {
         this.repository = repository;
+        this.followerRepository = followerRepository;
     }
 
     @PutMapping("/email")
@@ -65,6 +75,50 @@ class UserController {
     @DeleteMapping
     public void deleteUser(){
 
+    }
+
+    @GetMapping("/follow")
+    ResponseEntity followUser(@RequestParam String id){
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        Following follow = new Following();
+        User user = repository.getById(userId);
+        User following = repository.getById(id);
+        follow.setUser(user);
+        follow.setFollowing(following);
+        follow.setFollowDate(ZonedDateTime.now());
+
+        try {
+            if(userId.equals(id))
+                throw new Exception();
+
+            followerRepository.save(follow);
+            return new ResponseEntity(HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/following")
+    Map<String, Boolean> isFollowing(@RequestParam String id){
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        boolean exists = followerRepository.existsById(new FollowingPK(userId, id));
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("isFollowing", exists);
+        return map;
+    }
+
+    @DeleteMapping("/unfollow")
+    ResponseEntity unfollowUser(@RequestParam String id){
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+        try {
+            followerRepository.deleteById(new FollowingPK(userId, id));
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
