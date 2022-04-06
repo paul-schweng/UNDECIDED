@@ -96,6 +96,8 @@ class UserController {
 
             followerRepository.save(follow);
             repository.save(user);
+            repository.save(following);
+
             return new ResponseEntity(HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,6 +125,9 @@ class UserController {
             User following = repository.getById(id);
             user.setFollowingNum(user.getFollowingNum() - 1);
             following.setFollowerNum(following.getFollowerNum() - 1);
+            
+            repository.save(following);
+            repository.save(user);
 
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
