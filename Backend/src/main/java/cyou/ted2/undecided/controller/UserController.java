@@ -87,11 +87,15 @@ class UserController {
         follow.setFollowing(following);
         follow.setFollowDate(ZonedDateTime.now());
 
+        user.setFollowingNum(user.getFollowingNum() + 1);
+        following.setFollowerNum(following.getFollowerNum() + 1);
+
         try {
             if(userId.equals(id))
                 throw new Exception();
 
             followerRepository.save(follow);
+            repository.save(user);
             return new ResponseEntity(HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,6 +118,12 @@ class UserController {
 
         try {
             followerRepository.deleteById(new FollowingPK(userId, id));
+
+            User user = repository.getById(userId);
+            User following = repository.getById(id);
+            user.setFollowingNum(user.getFollowingNum() - 1);
+            following.setFollowerNum(following.getFollowerNum() - 1);
+
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
