@@ -4,7 +4,7 @@ import cyou.ted2.undecided.providers.MyGenerator;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 public class Comment {
@@ -21,7 +21,7 @@ public class Comment {
     @JoinColumn(name = "ratingID")
     private Rating rating;
 
-    private LocalDateTime timestamp;
+    private ZonedDateTime timestamp;
 
     public Rating getRating() {
         return rating;
@@ -55,11 +55,11 @@ public class Comment {
         this.rating = rating;
     }
 
-    public LocalDateTime getTimestamp() {
+    public ZonedDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(ZonedDateTime timestamp) {
         this.timestamp = timestamp;
     }
 }

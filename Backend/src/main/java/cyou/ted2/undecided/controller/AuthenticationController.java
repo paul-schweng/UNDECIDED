@@ -6,6 +6,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,8 +32,10 @@ public class AuthenticationController extends SpringBootServletInitializer {
             map.put("usernameError", true);
         else if(userRepository.findUserByEmail(user.getEmail()) != null)
             map.put("emailError", true);
-        else
+        else {
+            user.setRegisterDate(ZonedDateTime.now());
             userRepository.save(user);
+        }
         return map;
     }
 

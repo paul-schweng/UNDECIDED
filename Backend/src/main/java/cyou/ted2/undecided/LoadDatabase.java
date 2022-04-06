@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,7 +28,7 @@ class LoadDatabase {
                     Collections.singletonList(new Type(1, "test")),
                     Collections.singletonList(1),
                     Collections.singletonList(new User()),
-                    LocalDateTime.now(),
+                    ZonedDateTime.now(),
                     2.0,
                     1,
                     1,
