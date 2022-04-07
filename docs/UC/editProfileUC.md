@@ -1,4 +1,4 @@
-# 1 Use-Case Name
+# 1 Edit Profile
 [Edit Profile](../SRS.md#316-edit-profile)
 
 ## 1.1 Brief Description
