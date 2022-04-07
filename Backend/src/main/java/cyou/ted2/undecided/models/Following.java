@@ -14,6 +14,8 @@ public class Following {
     @ManyToOne(optional = false)
     @JoinColumn(name = "followingID", nullable = false)
     private User following;
+
+    @Column(columnDefinition = "datetime default NOW()")
     private ZonedDateTime followDate;
 
     public User getFollowing() {
