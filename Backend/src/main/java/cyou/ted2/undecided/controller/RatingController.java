@@ -4,6 +4,7 @@ import cyou.ted2.undecided.models.Rating;
 import cyou.ted2.undecided.models.User;
 import cyou.ted2.undecided.repository.RatingRepository;
 import cyou.ted2.undecided.repository.UserRepository;
+import cyou.ted2.undecided.services.PartialLoadRatings;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,17 +19,21 @@ class RatingController {
 
     private final RatingRepository ratingRepository;
     private final UserRepository userRepository;
+    private final PartialLoadRatings partialLoad;
 
     RatingController(RatingRepository rRepository, UserRepository uRepository) {
         this.ratingRepository = rRepository;
         this.userRepository = uRepository;
+        partialLoad = new PartialLoadRatings(rRepository);
     }
 
     @GetMapping("/ratings")
     @ResponseBody
-    Iterable<Rating> getAllRatingsByUser(@RequestParam("filter") String filter) {
+    Iterable<Rating> getAllRatingsByUser(@RequestParam("filter") String filter, @RequestParam("id") String id) {
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        return ratingRepository.findAllByUserId(userId);
+        // return ratingRepository.findAllByUserId(userId);
+
+        return partialLoad.load(id, userId, filter);
     }
 
     @GetMapping("/rating")
