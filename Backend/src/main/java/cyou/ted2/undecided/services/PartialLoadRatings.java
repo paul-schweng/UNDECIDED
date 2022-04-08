@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PartialLoadRatings {
 
-    private static final int MAX_LOAD_RATING = 3;
+    private static final int MAX_LOAD_RATING = 4;
 
     private final RatingRepository ratingRepository;
 
