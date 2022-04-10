@@ -1,7 +1,7 @@
 package cyou.ted2.undecided.models;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @IdClass(FollowingPK.class)
@@ -14,7 +14,9 @@ public class Following {
     @ManyToOne(optional = false)
     @JoinColumn(name = "followingID", nullable = false)
     private User following;
-    private LocalDateTime followDate;
+
+    @Column(columnDefinition = "datetime default NOW()")
+    private ZonedDateTime followDate;
 
     public User getFollowing() {
         return following;
@@ -24,7 +26,7 @@ public class Following {
         return user;
     }
 
-    public LocalDateTime getFollowDate() {
+    public ZonedDateTime getFollowDate() {
         return followDate;
     }
 
@@ -36,7 +38,7 @@ public class Following {
         this.following = following;
     }
 
-    public void setFollowDate(LocalDateTime followDate) {
+    public void setFollowDate(ZonedDateTime followDate) {
         this.followDate = followDate;
     }
 }

@@ -1,4 +1,4 @@
-# 1 Use-Case Name
+# 1 Rate
 [Rate](../SRS.md#3110-rate)
 
 ## 1.1 Brief Description

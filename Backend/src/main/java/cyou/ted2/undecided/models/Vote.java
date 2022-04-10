@@ -1,7 +1,7 @@
 package cyou.ted2.undecided.models;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @IdClass(VotePK.class)
@@ -15,7 +15,7 @@ public class Vote {
     @ManyToOne
     @JoinColumn(name = "ratingID")
     private Rating rating;
-    private LocalDateTime timestamp;
+    private ZonedDateTime timestamp;
 
     public User getUser() {
         return user;

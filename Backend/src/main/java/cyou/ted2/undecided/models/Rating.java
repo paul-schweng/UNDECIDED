@@ -10,7 +10,7 @@ import cyou.ted2.undecided.providers.MyGenerator;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity
@@ -34,9 +34,9 @@ public class Rating extends Model{
     @JsonInclude
     protected List<Integer> labels;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany
     protected List<User> friends;
-    protected LocalDateTime timestamp;
+    protected ZonedDateTime timestamp;
     protected double stars;
     protected int voteNum, commentNum, imageNum;
 
@@ -72,7 +72,7 @@ public class Rating extends Model{
         return friends;
     }
 
-    public LocalDateTime getTimestamp() {
+    public ZonedDateTime getTimestamp() {
         return timestamp;
     }
 
@@ -125,7 +125,7 @@ public class Rating extends Model{
         this.friends = friends;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(ZonedDateTime timestamp) {
         this.timestamp = timestamp;
     }
 

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Collection;
 
 @Entity
@@ -24,8 +25,9 @@ public class User extends Model{
     protected String name, username,
             email, password, usertype,
             description, profileImage, language;
-    protected LocalDate birthdate;
-    protected LocalDate registerDate;
+    protected ZonedDateTime birthdate;
+    @Column(columnDefinition = "datetime default NOW()")
+    protected ZonedDateTime registerDate;
     protected boolean verified, isDarkTheme;
     protected int ratingsNum, followerNum, followingNum, bannerImage;
 
@@ -109,19 +111,19 @@ public class User extends Model{
         this.language = language;
     }
 
-    public LocalDate getBirthdate() {
+    public ZonedDateTime getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(LocalDate birthdate) {
+    public void setBirthdate(ZonedDateTime birthdate) {
         this.birthdate = birthdate;
     }
 
-    public LocalDate getRegisterDate() {
+    public ZonedDateTime getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(LocalDate registerDate) {
+    public void setRegisterDate(ZonedDateTime registerDate) {
         this.registerDate = registerDate;
     }
 
