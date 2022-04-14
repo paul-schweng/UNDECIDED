@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/auth")
 @CrossOrigin(origins="*", maxAge=3600)
 public class AuthenticationController extends SpringBootServletInitializer {
-
+//
 
     private UserRepository userRepository;
 

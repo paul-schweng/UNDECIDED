@@ -74,7 +74,11 @@ class UserController {
 
     @DeleteMapping
     public void deleteUser(){
-
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        User deletedUser = new User();
+        deletedUser.setId(userId);
+        // TODO delete profile pictures
+        repository.save(deletedUser);
     }
 
     @GetMapping("/follow")
