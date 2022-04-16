@@ -23,15 +23,18 @@ public class ImageController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity postUserImage(@RequestBody() MultipartFile file) throws IOException {
-        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        File imageFile = new File(PATH_TO_IMAGES + "users/" + userId + ".jpg");
-        FileUtils.writeByteArrayToFile(imageFile, file.getBytes(), false);
-        return new ResponseEntity(HttpStatus.CREATED);
+    public ResponseEntity postUserImage(@RequestParam("image") MultipartFile file) throws IOException {
+        //TODO hier prüfung auf groeße
+            String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+            File imageFile = new File(PATH_TO_IMAGES + "users/" + userId + ".jpg");
+            FileUtils.writeByteArrayToFile(imageFile, file.getBytes(), false);
+            return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PostMapping("/rating")
-    public ResponseEntity postRatingImages(@RequestBody MultipartFile file, @RequestParam("rating") String ratingId, @RequestParam("index") String index) throws IOException{
+    public ResponseEntity postRatingImages(@RequestParam("image") MultipartFile file,
+                                           @RequestParam("rating") String ratingId,
+                                           @RequestParam("index") String index) throws IOException{
         Rating rating = ratingRepository.findRatingById(ratingId);
         try {
             int imageIndex = Integer.parseInt(index);
