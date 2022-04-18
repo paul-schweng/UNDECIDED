@@ -51,9 +51,11 @@ public class ImageController {
         }
 
         File imageFile = new File(PATH_TO_IMAGES + "ratings/" + ratingId + "-" + index + ".jpg");
+        boolean existsFile = imageFile.exists();
+
         FileUtils.writeByteArrayToFile(imageFile, file.getBytes());
 
-        if(!imageFile.exists()){
+        if(!existsFile){
             rating.setImageNum(rating.getImageNum() + 1);
             ratingRepository.save(rating);
         }
