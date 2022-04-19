@@ -61,7 +61,7 @@ public class ImageController {
         }
 
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.accepted().body("{\"imageNum\": " + rating.getImageNum() + "}");
     }
 
 
