@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface FollowerRepository extends JpaRepository<Following, FollowingPK> {
 
-    @Query(value = "SELECT f.user FROM Following f WHERE f.following.id = ?1 ORDER BY f.followDate")
-    List<User> getAllUsingFollowing_Id(String followingID);
+    @Query(value = "SELECT f.user FROM Following f WHERE f.following.id = ?1 AND f.followDate < ?2 ORDER BY f.followDate DESC")
+    List<User> getAllUsingFollowing_Id(String followingID, ZonedDateTime timestamp, Pageable pageable);
 
-    @Query(value = "SELECT f.following FROM Following f WHERE f.user.id = ?1 ORDER BY f.followDate")
-    List<User> getAllUsingFollower_Id(String followingID);
+    @Query(value = "SELECT f.following FROM Following f WHERE f.user.id = ?1 AND f.followDate < ?2 ORDER BY f.followDate DESC")
+    List<User> getAllUsingFollower_Id(String followingID, ZonedDateTime timestamp, Pageable pageable);
 }

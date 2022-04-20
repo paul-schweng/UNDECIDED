@@ -8,6 +8,7 @@ import cyou.ted2.undecided.repository.FollowerRepository;
 import cyou.ted2.undecided.repository.RatingRepository;
 import cyou.ted2.undecided.repository.UserRepository;
 import cyou.ted2.undecided.tools.PasswordHashing;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -141,18 +142,28 @@ class UserController {
         }
     }
 
-    @GetMapping("/myFollower")
-    ResponseEntity<?> getFollower(){
-        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        List<User> followerList = followerRepository.getAllUsingFollowing_Id(userId);
+    @PostMapping("/myFollower")
+    ResponseEntity<?> getFollower(@RequestBody PartialLoadFollow body){
+        if(body.userid == null)
+            body.userid = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+        List<User> followerList = followerRepository.getAllUsingFollowing_Id(body.userid, body.timestamp, PageRequest.of(0, MAX_LOAD_USER));
 
         return ResponseEntity.accepted().body(followerList);
     }
 
-    @GetMapping("/myFollowing")
-    ResponseEntity<?> getFollowing(){
-        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        List<User> followingList = followerRepository.getAllUsingFollower_Id(userId);
+    @PostMapping("/myFollowing")
+    ResponseEntity<?> getFollowing(@RequestBody PartialLoadFollow body){
+
+        System.out.println("\n \n \n \n");
+        System.out.println(body.userid);
+        System.out.println("\n \n \n \n");
+
+
+        if(body.userid == null)
+            body.userid = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+        List<User> followingList = followerRepository.getAllUsingFollower_Id(body.userid, body.timestamp,PageRequest.of(0, MAX_LOAD_USER));
 
         return ResponseEntity.accepted().body(followingList);
     }
