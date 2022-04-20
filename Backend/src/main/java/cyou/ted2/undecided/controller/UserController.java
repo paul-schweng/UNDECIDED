@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -138,6 +139,15 @@ class UserController {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/myFollower")
+    ResponseEntity<?> getFollower(){
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        List<User> followerList = followerRepository.getAllUsingFollowing_Id(userId);
+        System.out.println(followerList);
+
+        return ResponseEntity.accepted().body(followerList);
     }
 
 }
