@@ -27,6 +27,9 @@ class UserController {
     private final UserRepository repository;
     private final FollowerRepository followerRepository;
 
+    private final static int MAX_LOAD_USER = 5;
+
+
     UserController(UserRepository repository, FollowerRepository followerRepository) {
         this.repository = repository;
         this.followerRepository = followerRepository;
@@ -169,3 +172,26 @@ class UserController {
     }
 
 }
+
+class PartialLoadFollow{
+    ZonedDateTime timestamp;
+    String userid;
+
+    public ZonedDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(ZonedDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+}
+
+
