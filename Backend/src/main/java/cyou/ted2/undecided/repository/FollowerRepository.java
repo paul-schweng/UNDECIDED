@@ -12,4 +12,7 @@ public interface FollowerRepository extends JpaRepository<Following, FollowingPK
 
     @Query(value = "SELECT f.user FROM Following f WHERE f.following.id = ?1 ORDER BY f.followDate")
     List<User> getAllUsingFollowing_Id(String followingID);
+
+    @Query(value = "SELECT f.following FROM Following f WHERE f.user.id = ?1 ORDER BY f.followDate")
+    List<User> getAllUsingFollower_Id(String followingID);
 }

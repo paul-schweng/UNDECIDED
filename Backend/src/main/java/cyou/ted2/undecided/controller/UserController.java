@@ -145,9 +145,16 @@ class UserController {
     ResponseEntity<?> getFollower(){
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         List<User> followerList = followerRepository.getAllUsingFollowing_Id(userId);
-        System.out.println(followerList);
 
         return ResponseEntity.accepted().body(followerList);
+    }
+
+    @GetMapping("/myFollowing")
+    ResponseEntity<?> getFollowing(){
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        List<User> followingList = followerRepository.getAllUsingFollower_Id(userId);
+
+        return ResponseEntity.accepted().body(followingList);
     }
 
 }
