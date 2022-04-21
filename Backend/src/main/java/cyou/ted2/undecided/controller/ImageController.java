@@ -29,7 +29,6 @@ public class ImageController {
 
     @PostMapping("/user")
     public ResponseEntity<?> postUserImage(@RequestParam("image") MultipartFile file) throws IOException {
-        //TODO hier prüfung auf groeße
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         File imageFile = new File(PATH_TO_IMAGES + "users/" + userId + ".jpg");
         FileUtils.writeByteArrayToFile(imageFile, file.getBytes(), false);
@@ -86,7 +85,6 @@ public class ImageController {
     }
 
 
-    //TODO this here
     @GetMapping(
             value = "/user/{imgPath}",
             produces = MediaType.IMAGE_JPEG_VALUE
