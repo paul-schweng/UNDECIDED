@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Field;
+import java.security.NoSuchAlgorithmException;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,11 +41,11 @@ class UserController {
 
     @PutMapping("/password")
     @ResponseBody
-    User putNewPassword(@RequestBody String currentPw, String newPw) {
+    User putNewPassword(@RequestBody String currentPw, String newPw) throws NoSuchAlgorithmException {
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         User user = repository.findUserById(userId);
-        if (PasswordHashing.hashPassword(currentPw).equals(user.getPassword())){
-            user.setPassword(PasswordHashing.hashPassword(newPw));
+        if (PasswordHashing.getHash(currentPw).equals(user.getPassword())){
+            user.setPassword(PasswordHashing.getHash(newPw));
             return repository.save(user);
         }
         return null; //later replace with exception
