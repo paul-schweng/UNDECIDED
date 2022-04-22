@@ -8,5 +8,14 @@
       <jdbc-url>jdbc:mariadb://pma.ted2.cyou/undecided</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="UNDECIDED/Hibernate" uuid="a0c46d36-8d68-4363-b2eb-d16eb6e8cafd">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate</remarks>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://pma.ted2.cyou:3306/undecided_autogen</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
