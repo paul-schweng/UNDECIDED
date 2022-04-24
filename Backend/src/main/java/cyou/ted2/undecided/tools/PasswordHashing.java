@@ -10,16 +10,18 @@ import java.security.SecureRandom;
 
 public class PasswordHashing {
 
+    //i think it's not needed anymore, remove if it's sure
+    /*
     public static String hashPassword(String pw){
         int strength = 10; // work factor of bcrypt
         BCryptPasswordEncoder bCryptPasswordEncoder =
                 new BCryptPasswordEncoder(strength, new SecureRandom());
         return bCryptPasswordEncoder.encode(pw);
     }
-
+    */
     //methods for SHA-256
 
-    public static byte[] getSHA(String input) throws NoSuchAlgorithmException
+    private static byte[] getSHA(String input) throws NoSuchAlgorithmException
     {
         // Static getInstance method is called with hashing SHA
         MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -30,7 +32,7 @@ public class PasswordHashing {
         return md.digest(input.getBytes(StandardCharsets.UTF_8));
     }
 
-    public static String toHexString(byte[] hash)
+    private static String toHexString(byte[] hash)
     {
         // Convert byte array into signum representation
         BigInteger number = new BigInteger(1, hash);
