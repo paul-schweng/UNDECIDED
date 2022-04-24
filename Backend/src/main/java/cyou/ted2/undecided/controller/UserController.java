@@ -8,6 +8,7 @@ import cyou.ted2.undecided.repository.FollowerRepository;
 import cyou.ted2.undecided.repository.RatingRepository;
 import cyou.ted2.undecided.repository.UserRepository;
 import cyou.ted2.undecided.tools.PasswordHashing;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import java.lang.reflect.Field;
 import java.security.NoSuchAlgorithmException;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,6 +27,9 @@ class UserController {
 
     private final UserRepository repository;
     private final FollowerRepository followerRepository;
+
+    private final static int MAX_LOAD_USER = 5;
+
 
     UserController(UserRepository repository, FollowerRepository followerRepository) {
         this.repository = repository;
@@ -75,7 +80,11 @@ class UserController {
 
     @DeleteMapping
     public void deleteUser(){
-
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        User deletedUser = new User();
+        deletedUser.setId(userId);
+        // TODO delete profile pictures
+        repository.save(deletedUser);
     }
 
     @GetMapping("/follow")
@@ -137,4 +146,53 @@ class UserController {
         }
     }
 
+    @PostMapping("/myFollower")
+    ResponseEntity<?> getFollower(@RequestBody PartialLoadFollow body){
+        if(body.userid == null)
+            body.userid = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+        List<User> followerList = followerRepository.getAllUsingFollowing_Id(body.userid, body.timestamp, PageRequest.of(0, MAX_LOAD_USER));
+
+        return ResponseEntity.accepted().body(followerList);
+    }
+
+    @PostMapping("/myFollowing")
+    ResponseEntity<?> getFollowing(@RequestBody PartialLoadFollow body){
+
+        System.out.println("\n \n \n \n");
+        System.out.println(body.userid);
+        System.out.println("\n \n \n \n");
+
+
+        if(body.userid == null)
+            body.userid = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+        List<User> followingList = followerRepository.getAllUsingFollower_Id(body.userid, body.timestamp,PageRequest.of(0, MAX_LOAD_USER));
+
+        return ResponseEntity.accepted().body(followingList);
+    }
+
 }
+
+class PartialLoadFollow{
+    ZonedDateTime timestamp;
+    String userid;
+
+    public ZonedDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(ZonedDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+}
+
+
