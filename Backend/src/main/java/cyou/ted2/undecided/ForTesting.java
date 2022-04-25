@@ -7,6 +7,6 @@ import java.security.NoSuchAlgorithmException;
 public class ForTesting {
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
-        System.out.println(PasswordHashing.getHash("Test1234"));
+        System.out.println(PasswordHashing.getHash("Undecided/2022"));
     }
 }
