@@ -3,6 +3,8 @@ package cyou.ted2.undecided;
 import com.google.gson.Gson;
 import cyou.ted2.undecided.models.User;
 import cyou.ted2.undecided.repository.UserRepository;
+import cyou.ted2.undecided.tools.PasswordHashing;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.sql.DataSource;
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.util.*;
 
@@ -69,16 +72,24 @@ public class UndecidedApplication extends SpringBootServletInitializer {
 
         @Component
         public class CustomAuthProvider implements AuthenticationProvider {
+            @SneakyThrows
             @Override
             public Authentication authenticate(Authentication authentication) throws AuthenticationException {
                 String userid = authentication.getName();
-                String password = authentication.getCredentials() != null ? authentication.getCredentials().toString() : "";
+                String password = "";
+                try {
+                    password = authentication.getCredentials() != null ? PasswordHashing.getHash(authentication.getCredentials().toString()) : "";
+                }catch (NoSuchAlgorithmException e){
+                    e.printStackTrace();
+                }
                 Authentication auth = null;
                 System.out.println("credentials: " + userid + "  " + password);
-                if(userid.equals("admin") && password.equals("1"))
-                    return new UsernamePasswordAuthenticationToken(userid, password, Collections.emptyList());
+
 
                 try {
+                    if(userid.equals("admin") && password.equals(PasswordHashing.getHash("1")))
+                        return new UsernamePasswordAuthenticationToken(userid, password, Collections.emptyList());
+
                     User user = usersRepository.findUserByEmail(userid);
                     if(user == null)
                         user = usersRepository.findUserByUsername(userid);
