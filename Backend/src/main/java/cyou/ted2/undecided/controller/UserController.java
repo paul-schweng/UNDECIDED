@@ -167,9 +167,20 @@ class UserController {
         if(body.userid == null)
             body.userid = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 
-        List<User> followingList = followerRepository.getAllUsingFollower_Id(body.userid, body.timestamp,PageRequest.of(0, MAX_LOAD_USER));
+        List<User> followingList = followerRepository.getAllUsingFollower_Id(body.userid, body.timestamp, PageRequest.of(0, MAX_LOAD_USER));
 
         return ResponseEntity.accepted().body(followingList);
+    }
+
+
+    @PostMapping("/myFriends")
+    ResponseEntity<?> getFriends(@RequestBody PartialLoadFollow body){
+        if(body.userid == null)
+            body.userid = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+        List<User> followerList = followerRepository.getAllFriends(body.userid, body.timestamp, PageRequest.of(0, MAX_LOAD_USER));
+
+        return ResponseEntity.accepted().body(followerList);
     }
 
 }

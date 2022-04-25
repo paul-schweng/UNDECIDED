@@ -86,11 +86,12 @@ public class ImageController {
 
 
     @GetMapping(
-            value = "/user/{imgPath}",
+            value = "/user",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public @ResponseBody ResponseEntity<?> getUserImage(@PathVariable String imgPath) throws IOException {
-        File file = new File(PATH_TO_IMAGES + "users/");
+    public @ResponseBody ResponseEntity<?> getUserImage() throws IOException {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        File file = new File(PATH_TO_IMAGES + "users/" + userId + ".jpg");
         if(!file.exists())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
