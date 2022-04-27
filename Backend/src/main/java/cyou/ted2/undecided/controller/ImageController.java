@@ -1,7 +1,9 @@
 package cyou.ted2.undecided.controller;
 
 import cyou.ted2.undecided.models.Rating;
+import cyou.ted2.undecided.models.User;
 import cyou.ted2.undecided.repository.RatingRepository;
+import cyou.ted2.undecided.repository.UserRepository;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,7 @@ public class ImageController {
     public ImageController(RatingRepository ratingRepository) {
         this.ratingRepository = ratingRepository;
     }
+
 
     @PostMapping("/user")
     public ResponseEntity<?> postUserImage(@RequestParam("image") MultipartFile file) throws IOException {
@@ -100,4 +103,31 @@ public class ImageController {
     }
 
 
+    @DeleteMapping("/user")
+    public ResponseEntity<?> deleteUserImage() {
+
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        File file = new File(PATH_TO_IMAGES + "users/" + userId + ".jpg");
+        if (!file.exists())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            Files.delete(Paths.get(PATH_TO_IMAGES + "users/" + userId + ".jpg"));
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        }
+    }
+
+    /*
+    @DeleteMapping("/rating")
+    public ResponseEntity<?> deleteRatingImage(@RequestParam String id) {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+        if(!userId.equals(rating.getUser().getId()))
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+     */
 }
