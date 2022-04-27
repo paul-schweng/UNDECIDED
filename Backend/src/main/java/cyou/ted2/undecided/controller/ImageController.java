@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/api/img")
@@ -79,12 +81,13 @@ public class ImageController {
             file = new File(PATH_TO_IMAGES + "ratings/" + id + "-" + idx + ".jpg");
         }
 
-
         if(!file.exists())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         InputStream in = new FileInputStream(file);
-        return ResponseEntity.accepted().body(IOUtils.toByteArray(in));
+        byte[] byteArr = IOUtils.toByteArray(in);
+        in.close();
+        return ResponseEntity.accepted().body(byteArr);
     }
 
 
@@ -99,7 +102,9 @@ public class ImageController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         InputStream in = new FileInputStream(file);
-        return ResponseEntity.accepted().body(IOUtils.toByteArray(in));
+        byte[] byteArr = IOUtils.toByteArray(in);
+        in.close();
+        return ResponseEntity.accepted().body(byteArr);
     }
 
 
