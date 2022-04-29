@@ -1,8 +1,13 @@
 package cyou.ted2.undecided.controller;
 
+import cyou.ted2.undecided.models.Authentication;
 import cyou.ted2.undecided.models.User;
+import cyou.ted2.undecided.repository.AuthRepository;
 import cyou.ted2.undecided.repository.UserRepository;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -18,12 +23,12 @@ public class AuthenticationController extends SpringBootServletInitializer {
 //
 
     private UserRepository userRepository;
+    private AuthRepository authRepository;
 
-
-    public AuthenticationController(UserRepository userRepository) {
+    public AuthenticationController(UserRepository userRepository, AuthRepository authRepository) {
         this.userRepository = userRepository;
+        this.authRepository = authRepository;
     }
-
 
     @PostMapping("/register")
     public Map<String, Boolean> register(@RequestBody User user) throws InterruptedException {
@@ -52,7 +57,19 @@ public class AuthenticationController extends SpringBootServletInitializer {
         return map;
     }
 
+    @GetMapping("/rememberMe")
+    public ResponseEntity<?> rememberMe(@CookieValue("JSESSIONID") String session){
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        User user = new User();
+        user.setId(userId);
 
+        Authentication authentication = new Authentication();
+        authentication.setSession(session);
+        authentication.setUser(user);
 
+        authRepository.save(authentication);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

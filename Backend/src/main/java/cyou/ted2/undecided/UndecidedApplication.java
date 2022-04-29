@@ -2,6 +2,7 @@ package cyou.ted2.undecided;
 
 import com.google.gson.Gson;
 import cyou.ted2.undecided.models.User;
+import cyou.ted2.undecided.repository.AuthRepository;
 import cyou.ted2.undecided.repository.UserRepository;
 import cyou.ted2.undecided.tools.PasswordHashing;
 import lombok.SneakyThrows;
@@ -69,14 +70,27 @@ public class UndecidedApplication extends SpringBootServletInitializer {
         private CustomAuthProvider customAuthProvider;
         @Autowired
         private UserRepository usersRepository;
+        @Autowired
+        private AuthRepository authRepository;
 
         @Component
         public class CustomAuthProvider implements AuthenticationProvider {
             @SneakyThrows
             @Override
             public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+                System.out.println("\n \n \n");
+                System.out.println(authentication);
+                System.out.println("\n \n \n");
+
+                if(authentication.getName() == "#"){
+                    User userFromCookie = userFromCookie();
+                    return new UsernamePasswordAuthenticationToken(userFromCookie.getId(), userFromCookie.getPassword(), Collections.emptyList());
+                }
+
                 String userid = authentication.getName();
                 String password = "";
+
+
                 try {
                     password = authentication.getCredentials() != null ? PasswordHashing.getHash(authentication.getCredentials().toString()) : "";
                 }catch (NoSuchAlgorithmException e){
@@ -112,6 +126,10 @@ public class UndecidedApplication extends SpringBootServletInitializer {
             public boolean supports(Class<?> authentication) {
                 return authentication.equals(UsernamePasswordAuthenticationToken.class);
             }
+        }
+
+        public User userFromCookie(){
+            return authRepository.getById(/*cookie here*/ "").getUser();
         }
 
 
