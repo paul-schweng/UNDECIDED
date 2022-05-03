@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,21 +52,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic()
                 .and()
-                .csrf().disable()
-                .logout()
-                    .logoutUrl("/auth/logout")
-                    .addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.ALL)))
-                    .logoutSuccessHandler(this.logoutSuccessHandler)
-                    .deleteCookies(AuthCookieFilter.COOKIE_NAME, "JSESSIONID")
-                .and()
                 .authorizeRequests()
                     .antMatchers("/auth/*").permitAll()
                     .anyRequest().authenticated()
                 .and()
-                .exceptionHandling()
-                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                .logout()
+                    .logoutUrl("/auth/logout")
+                    // .addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.ALL)))
+                    .logoutSuccessHandler(this.logoutSuccessHandler)
+                    .deleteCookies(AuthCookieFilter.COOKIE_NAME, "JSESSIONID")
+                    .invalidateHttpSession(true)
+                .and()
+                //.exceptionHandling()
+                //        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                .csrf()
+                    .ignoringAntMatchers("/auth/*")
+                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                 .addFilterAfter(this.authCookieFilter, SecurityContextPersistenceFilter.class);
+
     }
 
     private class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
@@ -76,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                     Authentication authentication) throws IOException {
 
             String sessionId = AuthCookieFilter.extractAuthenticationCookie(request);
-            System.out.println("\n sessionId: " + sessionId + "\n \n");
+            System.out.println("\n logout with auth cookie: " + sessionId + "\n \n");
             if (sessionId != null && authRepository.existsById(sessionId)) {
                 authRepository.deleteById(sessionId);
             }
