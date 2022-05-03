@@ -1,7 +1,9 @@
 package cyou.ted2.undecided.controller;
 
 import cyou.ted2.undecided.models.Rating;
+import cyou.ted2.undecided.models.User;
 import cyou.ted2.undecided.repository.RatingRepository;
+import cyou.ted2.undecided.repository.UserRepository;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/api/img")
@@ -26,6 +30,7 @@ public class ImageController {
     public ImageController(RatingRepository ratingRepository) {
         this.ratingRepository = ratingRepository;
     }
+
 
     @PostMapping("/user")
     public ResponseEntity<?> postUserImage(@RequestParam("image") MultipartFile file) throws IOException {
@@ -76,27 +81,57 @@ public class ImageController {
             file = new File(PATH_TO_IMAGES + "ratings/" + id + "-" + idx + ".jpg");
         }
 
-
         if(!file.exists())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         InputStream in = new FileInputStream(file);
-        return ResponseEntity.accepted().body(IOUtils.toByteArray(in));
+        byte[] byteArr = IOUtils.toByteArray(in);
+        in.close();
+        return ResponseEntity.accepted().body(byteArr);
     }
 
 
     @GetMapping(
-            value = "/user/{imgPath}",
+            value = "/user/{userid}",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public @ResponseBody ResponseEntity<?> getUserImage(@PathVariable String imgPath) throws IOException {
-        File file = new File(PATH_TO_IMAGES + "users/");
+    public @ResponseBody ResponseEntity<?> getUserImage(@PathVariable String userid) throws IOException {
+        File file = new File(PATH_TO_IMAGES + "users/" + userid + ".jpg");
         if(!file.exists())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         InputStream in = new FileInputStream(file);
-        return ResponseEntity.accepted().body(IOUtils.toByteArray(in));
+        byte[] byteArr = IOUtils.toByteArray(in);
+        in.close();
+        return ResponseEntity.accepted().body(byteArr);
     }
 
 
+    @DeleteMapping("/user")
+    public ResponseEntity<?> deleteUserImage() {
+
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        File file = new File(PATH_TO_IMAGES + "users/" + userId + ".jpg");
+        if (!file.exists())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            Files.delete(Paths.get(PATH_TO_IMAGES + "users/" + userId + ".jpg"));
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        }
+    }
+
+    /*
+    @DeleteMapping("/rating")
+    public ResponseEntity<?> deleteRatingImage(@RequestParam String id) {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+        if(!userId.equals(rating.getUser().getId()))
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+     */
 }
