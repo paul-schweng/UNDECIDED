@@ -2,6 +2,7 @@ package cyou.ted2.undecided.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,6 +34,10 @@ public class Rating extends Model{
     @Transient
     @JsonInclude
     protected List<Integer> labels;
+
+    @Transient
+    @JsonInclude
+    protected boolean isLiked;
 
     @OneToMany
     protected List<User> friends;
@@ -191,5 +196,14 @@ public class Rating extends Model{
     public void setLabels(List<Integer> labels) {
         this.labels = labels;
         this.labelList = labels.toString();
+    }
+
+    @JsonProperty("isLiked")
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
     }
 }
