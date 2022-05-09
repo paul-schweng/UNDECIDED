@@ -39,7 +39,7 @@ public class Rating extends Model{
     @JsonInclude
     protected boolean isLiked;
 
-    @OneToMany
+    @ManyToMany
     protected List<User> friends;
     protected ZonedDateTime timestamp;
     protected double stars;
