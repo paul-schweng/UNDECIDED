@@ -66,7 +66,9 @@ class UserController {
     @GetMapping(value="/u/{username}")
     @ResponseBody
     User getUser(@PathVariable String username){
-        return repository.findUserByUsername(username);
+        User user = repository.findUserByUsername(username);
+        user.clearData(true);
+        return user;
     }
 
     @PutMapping()
@@ -74,6 +76,11 @@ class UserController {
     User updateUser(@RequestBody User u) {
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         User user = repository.findUserById(userId);
+
+        u.setFollowerNum(null);
+        u.setFollowingNum(null);
+        u.setRatingsNum(null);
+
         user.update(u);
         return repository.save(user);
     }
@@ -152,6 +159,7 @@ class UserController {
             body.userid = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 
         List<User> followerList = followerRepository.getAllUsingFollowing_Id(body.userid, body.timestamp, PageRequest.of(0, MAX_LOAD_USER));
+        followerList.forEach(user -> user.clearData(false));
 
         return ResponseEntity.accepted().body(followerList);
     }
@@ -168,6 +176,7 @@ class UserController {
             body.userid = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 
         List<User> followingList = followerRepository.getAllUsingFollower_Id(body.userid, body.timestamp, PageRequest.of(0, MAX_LOAD_USER));
+        followingList.forEach(user -> user.clearData(false));
 
         return ResponseEntity.accepted().body(followingList);
     }
@@ -179,6 +188,7 @@ class UserController {
             body.userid = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 
         List<User> followerList = followerRepository.getAllFriends(body.userid, body.timestamp, PageRequest.of(0, MAX_LOAD_USER));
+        followerList.forEach(user -> user.clearData(false));
 
         return ResponseEntity.accepted().body(followerList);
     }

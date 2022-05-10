@@ -42,8 +42,8 @@ public class Rating extends Model{
     @ManyToMany
     protected List<User> friends;
     protected ZonedDateTime timestamp;
-    protected double stars;
-    protected int voteNum, commentNum, imageNum;
+    protected Double stars;
+    protected Integer voteNum, commentNum, imageNum;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "productid")
@@ -74,14 +74,7 @@ public class Rating extends Model{
 
 
     public List<User> getFriends() {
-        friends.forEach(f -> {
-            user.setPassword(null);
-            user.setEmail(null);
-            user.setBirthdate(null);
-            user.setLanguage(null);
-            user.setDarkTheme(false);
-            user.setDescription(null);
-        });
+        friends.forEach(user -> user.clearData(false));
         return friends;
     }
 
@@ -107,12 +100,7 @@ public class Rating extends Model{
     }
 
     public User getUser() {
-        user.setPassword(null);
-        user.setEmail(null);
-        user.setBirthdate(null);
-        user.setLanguage(null);
-        user.setDarkTheme(false);
-        user.setDescription(null);
+        user.clearData(false);
         return user;
     }
 
@@ -136,7 +124,7 @@ public class Rating extends Model{
         return imageNum;
     }
 
-    public void setImageNum(int imageNum) {
+    public void setImageNum(Integer imageNum) {
         this.imageNum = imageNum;
     }
 
@@ -152,11 +140,11 @@ public class Rating extends Model{
         this.stars = stars;
     }
 
-    public void setVoteNum(int voteNum) {
+    public void setVoteNum(Integer voteNum) {
         this.voteNum = voteNum;
     }
 
-    public void setCommentNum(int commentNum) {
+    public void setCommentNum(Integer commentNum) {
         this.commentNum = commentNum;
     }
 
@@ -220,4 +208,5 @@ public class Rating extends Model{
     public void setLiked(boolean liked) {
         isLiked = liked;
     }
+
 }
