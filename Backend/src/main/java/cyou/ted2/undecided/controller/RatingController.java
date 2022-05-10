@@ -90,11 +90,16 @@ class RatingController {
         updatedRating.setCommentNum(null);
         updatedRating.setImageNum(null);
 
+        System.out.println(rating + "\n \n");
+
         rating.update(updatedRating);
+
+        System.out.println(updatedRating + "\n \n");
+        System.out.println(rating + "\n \n");
 
         rating.setLiked(isLiked(rating.getId()));
 
-        return ResponseEntity.accepted().body(ratingRepository.save(updatedRating));
+        return ResponseEntity.accepted().body(ratingRepository.save(rating));
     }
 
     @DeleteMapping("/rating")
