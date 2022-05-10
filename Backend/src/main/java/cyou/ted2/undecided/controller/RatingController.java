@@ -64,6 +64,10 @@ class RatingController {
         newRating.setUser(user);
         newRating.setTimestamp(ZonedDateTime.now());
 
+        newRating.setVoteNum(0);
+        newRating.setCommentNum(0);
+        newRating.setImageNum(0);
+
         user.setRatingsNum(user.getRatingsNum() + 1);
         userRepository.save(user);
 
@@ -81,6 +85,10 @@ class RatingController {
 
         if(!userId.equals(rating.getUser().getId()))
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+        updatedRating.setVoteNum(null);
+        updatedRating.setCommentNum(null);
+        updatedRating.setImageNum(null);
 
         rating.update(updatedRating);
 

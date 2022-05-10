@@ -29,7 +29,7 @@ public class User extends Model{
     @Column(columnDefinition = "datetime default NOW()")
     protected ZonedDateTime registerDate;
     protected boolean verified, isDarkTheme;
-    protected int ratingsNum, followerNum, followingNum, bannerImage;
+    protected Integer ratingsNum, followerNum, followingNum, bannerImage;
 
     public int getBannerImage() {
         return bannerImage;
@@ -147,7 +147,7 @@ public class User extends Model{
         return ratingsNum;
     }
 
-    public void setRatingsNum(int ratingsNum) {
+    public void setRatingsNum(Integer ratingsNum) {
         this.ratingsNum = ratingsNum;
     }
 
@@ -155,7 +155,7 @@ public class User extends Model{
         return followerNum;
     }
 
-    public void setFollowerNum(int followerNum) {
+    public void setFollowerNum(Integer followerNum) {
         this.followerNum = followerNum;
     }
 
@@ -163,8 +163,19 @@ public class User extends Model{
         return followingNum;
     }
 
-    public void setFollowingNum(int followingNum) {
+    public void setFollowingNum(Integer followingNum) {
         this.followingNum = followingNum;
+    }
+
+    public void clearData(boolean onlyCriticalData){
+        setPassword(null);
+        setEmail(null);
+        setBirthdate(null);
+        setLanguage(null);
+        setDarkTheme(false);
+
+        if(!onlyCriticalData)
+            setDescription(null);
     }
 
 }
