@@ -5,6 +5,7 @@ import cyou.ted2.undecided.models.User;
 import cyou.ted2.undecided.repository.AuthRepository;
 import cyou.ted2.undecided.repository.UserRepository;
 import cyou.ted2.undecided.security.AuthCookieFilter;
+import cyou.ted2.undecided.tools.PasswordHashing;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -28,8 +30,8 @@ import java.util.UUID;
 public class AuthenticationController extends SpringBootServletInitializer {
 //
 
-    private UserRepository userRepository;
-    private AuthRepository authRepository;
+    private final UserRepository userRepository;
+    private final AuthRepository authRepository;
 
 
     public AuthenticationController(UserRepository userRepository, AuthRepository authRepository) {
@@ -38,7 +40,7 @@ public class AuthenticationController extends SpringBootServletInitializer {
     }
 
     @PostMapping("/register")
-    public Map<String, Boolean> register(@RequestBody User user) throws InterruptedException {
+    public Map<String, Boolean> register(@RequestBody User user) throws InterruptedException, NoSuchAlgorithmException {
         var map = new HashMap<String, Boolean>();
         if(userRepository.findUserByUsername(user.getUsername()) != null)
             map.put("usernameError", true);
@@ -46,6 +48,13 @@ public class AuthenticationController extends SpringBootServletInitializer {
             map.put("emailError", true);
         else {
             user.setRegisterDate(ZonedDateTime.now());
+            user.setPassword(PasswordHashing.getHash(user.getPassword()));
+
+            user.setBannerImage(0);
+            user.setRatingsNum(0);
+            user.setFollowerNum(0);
+            user.setFollowingNum(0);
+
             userRepository.save(user);
         }
         return map;
