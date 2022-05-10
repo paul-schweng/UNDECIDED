@@ -15,7 +15,26 @@ public class Vote {
     @ManyToOne
     @JoinColumn(name = "ratingID")
     private Rating rating;
+
     private ZonedDateTime timestamp;
+
+
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
+
+    public ZonedDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(ZonedDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public User getUser() {
         return user;

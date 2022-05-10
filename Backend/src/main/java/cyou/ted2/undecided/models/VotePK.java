@@ -4,13 +4,14 @@ import java.io.Serializable;
 
 public class VotePK implements Serializable {
 
-    private User user;
-    private Rating rating;
+    private String user;
+    private String rating;
 
-    public VotePK(User user, Rating rating) {
+    public VotePK(String user, String rating) {
         this.user = user;
         this.rating = rating;
     }
 
+    public VotePK(){}
 
 }
