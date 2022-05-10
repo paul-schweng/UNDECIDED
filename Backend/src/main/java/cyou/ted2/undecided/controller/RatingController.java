@@ -40,7 +40,9 @@ class RatingController {
     Iterable<Rating> getAllRatingsByUser(@RequestParam("filter") String filter, @RequestParam("id") String id, @RequestParam("i") int rowNum, @RequestParam("userID") String userId) {
         // return ratingRepository.findAllByUserId(userId);
 
-        return partialLoad.load(id, userId, filter, rowNum);
+        String principalId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+        return partialLoad.load(id, userId, filter, rowNum, principalId);
     }
 
     @GetMapping("/rating")

@@ -28,7 +28,7 @@ public class PartialLoadRatings {
 
 
 
-    public List<Rating> load(String lastRating, String userId, String filter, int rowNum){
+    public List<Rating> load(String lastRating, String userId, String filter, int rowNum, String principalId){
         Rating rating = new Rating();
 
         List<Rating> ratings = Collections.emptyList();
@@ -53,7 +53,7 @@ public class PartialLoadRatings {
                 ratings = ratingRepository.getWorstRatings(userId, rowNum, MAX_LOAD_RATING);
                 break;
             case "likes":
-
+                ratings = ratingRepository.getMostLikedRatings(userId, rowNum, MAX_LOAD_RATING);
                 break;
             case "comments":
 
@@ -63,7 +63,7 @@ public class PartialLoadRatings {
         System.out.println(new Gson().toJson(ratings));
 
         ratings.forEach(r ->
-                r.setLiked(ratingController.isLiked(r.getId(), userId))
+                r.setLiked(ratingController.isLiked(r.getId(), principalId))
         );
 
         return ratings;

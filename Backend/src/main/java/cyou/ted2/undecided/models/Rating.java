@@ -74,6 +74,14 @@ public class Rating extends Model{
 
 
     public List<User> getFriends() {
+        friends.forEach(f -> {
+            user.setPassword(null);
+            user.setEmail(null);
+            user.setBirthdate(null);
+            user.setLanguage(null);
+            user.setDarkTheme(false);
+            user.setDescription(null);
+        });
         return friends;
     }
 
@@ -99,6 +107,12 @@ public class Rating extends Model{
     }
 
     public User getUser() {
+        user.setPassword(null);
+        user.setEmail(null);
+        user.setBirthdate(null);
+        user.setLanguage(null);
+        user.setDarkTheme(false);
+        user.setDescription(null);
         return user;
     }
 
