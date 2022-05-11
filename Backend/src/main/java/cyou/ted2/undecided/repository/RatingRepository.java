@@ -29,6 +29,9 @@ public interface RatingRepository extends JpaRepository<Rating, String> {
     @Query(value = "SELECT * FROM (SELECT *, ROW_NUMBER() over (ORDER BY r.voteNum DESC, r.timestamp DESC) AS row_num FROM undecided_autogen.Rating r WHERE userid=?1) t WHERE row_num>?2 LIMIT ?3", nativeQuery = true)
     List<Rating> getMostLikedRatings(String user_id, int rowNum, int limit);
 
+    @Query(value = "SELECT * FROM Rating r WHERE userid in (SELECT followingID FROM Following WHERE userID = ?2) AND r.timestamp<?1 ORDER BY r.timestamp DESC", nativeQuery = true)
+    List<Rating> getRatingsOfFollowers(ZonedDateTime timestamp, String userId, Pageable pageable);
+
 
 
     @Modifying
