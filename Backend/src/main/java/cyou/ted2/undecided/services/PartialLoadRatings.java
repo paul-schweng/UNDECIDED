@@ -58,9 +58,20 @@ public class PartialLoadRatings {
             case "comments":
 
                 break;
+            case "home":
+                if(lastRating.equals("0"))
+                    rating.setTimestamp(ZonedDateTime.now());
+                else
+                    rating = ratingRepository.findById(lastRating).orElse(null);
+
+                if(rating == null)
+                    break;
+
+                ratings = ratingRepository.getRatingsOfFollowers(rating.getTimestamp(), principalId, PageRequest.of(0, MAX_LOAD_RATING));
+                break;
         }
 
-        System.out.println(new Gson().toJson(ratings));
+        // System.out.println(new Gson().toJson(ratings));
 
         ratings.forEach(r ->
                 r.setLiked(ratingController.isLiked(r.getId(), principalId))

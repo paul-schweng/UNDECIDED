@@ -90,12 +90,15 @@ class UserController {
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         User deletedUser = new User();
         deletedUser.setId(userId);
-        // TODO delete profile pictures
+        // TODO: delete profile pictures
+        // TODO: delete User from Authentication Table
+        // TODO: delete User from Vote Tabe
+        // TODO: delete User from Following Table
         repository.save(deletedUser);
     }
 
     @GetMapping("/follow")
-    ResponseEntity followUser(@RequestParam String id){
+    ResponseEntity<?> followUser(@RequestParam String id){
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         Following follow = new Following();
         User user = repository.getById(userId);
@@ -132,7 +135,7 @@ class UserController {
     }
 
     @DeleteMapping("/unfollow")
-    ResponseEntity unfollowUser(@RequestParam String id){
+    ResponseEntity<?> unfollowUser(@RequestParam String id){
         String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 
         try {

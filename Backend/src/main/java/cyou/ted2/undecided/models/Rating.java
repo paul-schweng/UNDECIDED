@@ -74,7 +74,6 @@ public class Rating extends Model{
 
 
     public List<User> getFriends() {
-        friends.forEach(user -> user.clearData(false));
         return friends;
     }
 
@@ -100,7 +99,6 @@ public class Rating extends Model{
     }
 
     public User getUser() {
-        user.clearData(false);
         return user;
     }
 
@@ -207,6 +205,11 @@ public class Rating extends Model{
 
     public void setLiked(boolean liked) {
         isLiked = liked;
+    }
+
+    public void clearData(){
+        friends.forEach(f -> f.clearData(false));
+        user.clearData(false);
     }
 
 }

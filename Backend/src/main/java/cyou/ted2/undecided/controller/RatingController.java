@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -35,24 +36,42 @@ class RatingController {
         partialLoad = new PartialLoadRatings(rRepository, this);
     }
 
+    @GetMapping("/rating/home")
+    ResponseEntity<?> getRatingsOfFollowers(@RequestParam("id") String id){
+        String principalId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+        List<Rating> ratings = partialLoad.load(id, null, "home", 0, principalId);
+
+        ratings.forEach(Rating::clearData);
+
+        return ResponseEntity.ok().body(ratings);
+    }
+
+
     @GetMapping("/ratings")
     @ResponseBody
-    Iterable<Rating> getAllRatingsByUser(@RequestParam("filter") String filter, @RequestParam("id") String id, @RequestParam("i") int rowNum, @RequestParam("userID") String userId) {
+    List<Rating> getAllRatingsByUser(@RequestParam("filter") String filter, @RequestParam("id") String id, @RequestParam("i") int rowNum, @RequestParam("userID") String userId) {
         // return ratingRepository.findAllByUserId(userId);
 
         String principalId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 
-        return partialLoad.load(id, userId, filter, rowNum, principalId);
+        List<Rating> ratings = partialLoad.load(id, userId, filter, rowNum, principalId);
+
+        ratings.forEach(Rating::clearData);
+
+        return ratings;
     }
 
     @GetMapping("/rating")
     @ResponseBody
-    Rating getRating(@RequestParam("id") String id) {
+    ResponseEntity<?> getRating(@RequestParam("id") String id) {
         Rating rating = ratingRepository.findById(id).orElse(null);
-        if(rating != null)
-            rating.setLiked(isLiked(rating.getId()));
+        if(rating == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        return rating;
+        rating.setLiked(isLiked(rating.getId()));
+        rating.clearData();
+        return ResponseEntity.ok().body(rating);
     }
 
     @PostMapping("/rating")
@@ -71,7 +90,10 @@ class RatingController {
         user.setRatingsNum(user.getRatingsNum() + 1);
         userRepository.save(user);
 
-        return ratingRepository.save(newRating);
+        ratingRepository.save(newRating);
+
+        newRating.clearData();
+        return newRating;
     }
 
     @PutMapping("/rating")
@@ -89,17 +111,23 @@ class RatingController {
         updatedRating.setVoteNum(null);
         updatedRating.setCommentNum(null);
         updatedRating.setImageNum(null);
+        updatedRating.setUser(null);
 
-        System.out.println(rating + "\n \n");
+        System.out.println("\n \n");
+        System.out.println(rating.getUser().getPassword());
+
 
         rating.update(updatedRating);
 
-        System.out.println(updatedRating + "\n \n");
-        System.out.println(rating + "\n \n");
+        System.out.println(rating.getUser().getPassword());
+        System.out.println("\n \n");
+
 
         rating.setLiked(isLiked(rating.getId()));
+        ratingRepository.save(rating);
 
-        return ResponseEntity.accepted().body(ratingRepository.save(rating));
+        rating.clearData();
+        return ResponseEntity.accepted().body(rating);
     }
 
     @DeleteMapping("/rating")
