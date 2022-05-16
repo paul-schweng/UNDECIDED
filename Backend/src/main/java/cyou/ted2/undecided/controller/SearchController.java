@@ -37,6 +37,9 @@ public class SearchController {
     ResponseEntity<?> getSearchResults(@RequestBody SearchQuery searchQuery) {
         List<Model> results = new ArrayList<>();
 
+        if(searchQuery.getQuery().equals("*"))
+            searchQuery.setQuery("");
+
         if(searchQuery.filters.contains("rating")){
             List<Rating> ratings = ratingRepository.getRatingsByQuerySearch(searchQuery.getQuery(), searchQuery.getLoadedRatings(), MAX_LOAD_RATINGS);
 
