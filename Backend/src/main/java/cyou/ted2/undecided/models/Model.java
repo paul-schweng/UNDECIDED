@@ -4,6 +4,16 @@ import java.lang.reflect.Field;
 
 public class Model {
 
+    private String modelType = "";
+
+    public String getModelType() {
+        return modelType;
+    }
+
+    public void setModelType(String modelType) {
+        this.modelType = modelType;
+    }
+
     public <T> void update(T object) {
         try {
             for (Field field : object.getClass().getDeclaredFields()) {

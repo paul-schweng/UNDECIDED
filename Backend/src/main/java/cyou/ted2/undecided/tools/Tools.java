@@ -8,6 +8,16 @@ import java.io.IOException;
 
 public class Tools {
 
+    /**
+     *
+     * @param min inclusive
+     * @param max inclusive
+     * @return random number between min and max
+     */
+    public static int randomInt(int min, int max){
+        return (int)(Math.random() * ((max - min) + 1) + min);
+    }
+
     public static String getTextFromFile(String file) {
         try(BufferedReader br = new BufferedReader(new FileReader(file))) {
             StringBuilder sb = new StringBuilder();

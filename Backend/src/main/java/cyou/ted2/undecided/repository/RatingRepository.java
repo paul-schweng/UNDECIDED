@@ -33,6 +33,11 @@ public interface RatingRepository extends JpaRepository<Rating, String> {
     List<Rating> getRatingsOfFollowers(ZonedDateTime timestamp, String userId, Pageable pageable);
 
 
+    // get ratings by exact match of brand/name -> otherwise get ratings that contain the query string (ordered by likes and timestamp)
+    @Query(value = "SELECT * FROM (SELECT r.*, ROW_NUMBER() over (ORDER BY CASE WHEN (p.name like ?1 OR p.brand like ?1) THEN 0 ELSE 1 END, r.voteNum DESC, r.timestamp DESC) as row_num FROM Rating r, Product p WHERE p.productid = r.productid AND (p.name like CONCAT('%', ?1, '%') OR p.brand like CONCAT('%', ?1, '%')) ) as a WHERE row_num > ?2 LIMIT ?3", nativeQuery = true)
+    List<Rating> getRatingsByQuerySearch(String query, int rowNum, int limit);
+
+
 
     @Modifying
     @Transactional

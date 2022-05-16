@@ -20,8 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-public
-class RatingController {
+public class RatingController {
 
     private final RatingRepository ratingRepository;
     private final UserRepository userRepository;
