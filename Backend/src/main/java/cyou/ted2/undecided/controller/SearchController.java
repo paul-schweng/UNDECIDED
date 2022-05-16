@@ -3,10 +3,12 @@ package cyou.ted2.undecided.controller;
 
 import cyou.ted2.undecided.models.Model;
 import cyou.ted2.undecided.models.Rating;
+import cyou.ted2.undecided.models.User;
 import cyou.ted2.undecided.models.VotePK;
 import cyou.ted2.undecided.repository.RatingRepository;
 import cyou.ted2.undecided.repository.UserRepository;
 import cyou.ted2.undecided.repository.VoteRepository;
+import cyou.ted2.undecided.tools.Tools;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ import java.util.List;
 public class SearchController {
 
     private static final int MAX_LOAD_RATINGS = 5;
+    private static final int MAX_LOAD_USERS = 2;
 
     private final RatingRepository ratingRepository;
     private final UserRepository userRepository;
@@ -34,8 +37,8 @@ public class SearchController {
     ResponseEntity<?> getSearchResults(@RequestBody SearchQuery searchQuery) {
         List<Model> results = new ArrayList<>();
 
-        if(!searchQuery.filters.contains("rating")){
-            List<Rating> ratings = ratingRepository.getRatingsByQuerySearch(searchQuery.query, searchQuery.loadedRatings, MAX_LOAD_RATINGS);
+        if(searchQuery.filters.contains("rating")){
+            List<Rating> ratings = ratingRepository.getRatingsByQuerySearch(searchQuery.getQuery(), searchQuery.getLoadedRatings(), MAX_LOAD_RATINGS);
 
             ratings.forEach(Rating::clearData);
             ratings.forEach(r ->{
@@ -45,6 +48,19 @@ public class SearchController {
 
             results.addAll(ratings);
         }
+        if(searchQuery.filters.contains("user")){
+            List<User> users = userRepository.getUsersByQuerySearch(searchQuery.getQuery(), searchQuery.getLoadedUsers(), MAX_LOAD_USERS);
+
+            users.forEach(u -> {
+                u.clearData(false);
+                u.setModelType("user");
+
+                int idx = Tools.randomInt(0, results.size());
+                results.add(idx, u);
+            });
+
+        }
+
 
         return ResponseEntity.ok().body(results);
     }
@@ -57,9 +73,12 @@ public class SearchController {
 }
 
 class SearchQuery {
+    private final static List<String> AVAILABLE_FILTERS = List.of("rating", "user");
+
     String query;
     int loadedUsers, loadedRatings;
-    List<String> filters = new ArrayList<>();
+    List<String> filters = AVAILABLE_FILTERS;
+
 
     public int getLoadedRatings() {
         return loadedRatings;
@@ -74,6 +93,11 @@ class SearchQuery {
     }
 
     public void setFilters(List<String> filters) {
+        // check if filters are accepted
+        for (String filter : filters) {
+            if(!AVAILABLE_FILTERS.contains(filter))
+                return;
+        }
         this.filters = filters;
     }
 
