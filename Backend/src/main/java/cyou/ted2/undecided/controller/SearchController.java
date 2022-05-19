@@ -17,6 +17,8 @@ import java.util.*;
 
 import static cyou.ted2.undecided.controller.SearchData.RATING;
 import static cyou.ted2.undecided.controller.SearchData.USER;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 @RestController
@@ -30,7 +32,7 @@ public class SearchController {
         for (SearchData data : SearchData.values())
             sum += data.GET_MAX();
 
-        assert sum == 1;
+        assertEquals(1, sum, 0.0);
     }
 
 
