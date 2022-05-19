@@ -13,15 +13,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static cyou.ted2.undecided.controller.SearchData.RATING;
+import static cyou.ted2.undecided.controller.SearchData.USER;
+
 
 @RestController
 @RequestMapping("/api/search")
 public class SearchController {
 
-    private static final int MAX_LOAD_RATINGS = 5;
-    private static final int MAX_LOAD_USERS = 2;
+    public static final int MAX_LOAD_RESULTS = 8;
+
+    static {
+        int sum = 0;
+        for (SearchData data : SearchData.values())
+            sum += data.GET_MAX();
+
+        assert sum == 1;
+    }
+
 
     private final RatingRepository ratingRepository;
     private final UserRepository userRepository;
@@ -40,8 +51,14 @@ public class SearchController {
         if(searchQuery.getQuery().equals("*"))
             searchQuery.setQuery("");
 
-        if(searchQuery.filters.contains("rating")){
-            List<Rating> ratings = ratingRepository.getRatingsByQuerySearch(searchQuery.getQuery(), searchQuery.getLoadedRatings(), MAX_LOAD_RATINGS);
+        if(searchQuery.filters.contains("ratings")){
+
+            //TODO: implement Label filter
+            if(searchQuery.filterMap.containsKey("labels")){
+
+            }
+
+            List<Rating> ratings = ratingRepository.getRatingsByQuerySearch(searchQuery.getQuery(), searchQuery.getLoadedRatings(), RATING.GET_MAX());
 
             ratings.forEach(Rating::clearData);
             ratings.forEach(r ->{
@@ -51,17 +68,15 @@ public class SearchController {
 
             results.addAll(ratings);
         }
-        if(searchQuery.filters.contains("user")){
-            List<User> users = userRepository.getUsersByQuerySearch(searchQuery.getQuery(), searchQuery.getLoadedUsers(), MAX_LOAD_USERS);
+        if(searchQuery.filters.contains("profile")){
+            List<User> users = userRepository.getUsersByQuerySearch(searchQuery.getQuery(), searchQuery.getLoadedUsers(), USER.GET_MAX());
 
-            users.forEach(u -> {
-                u.clearData(false);
-                u.setModelType("user");
-
-                int idx = Tools.randomInt(0, results.size());
-                results.add(idx, u);
-            });
-
+            int idx = 0;
+            for (User user : users) {
+                user.clearData(false);
+                user.setModelType("user");
+                results.add( idx = Tools.randomInt(idx+1, results.size()-1) , user);
+            }
         }
 
 
@@ -76,11 +91,12 @@ public class SearchController {
 }
 
 class SearchQuery {
-    private final static List<String> AVAILABLE_FILTERS = List.of("rating", "user");
+    private final static List<Object> AVAILABLE_FILTERS = List.of("ratings", "profile", "location", "brand");
 
     String query;
     int loadedUsers, loadedRatings;
-    List<String> filters = AVAILABLE_FILTERS;
+    List<Object> filters = AVAILABLE_FILTERS;
+    HashMap<String, List<Object>> filterMap = new HashMap<>();
 
 
     public int getLoadedRatings() {
@@ -91,17 +107,26 @@ class SearchQuery {
         this.loadedRatings = loadedRatings;
     }
 
-    public List<String> getFilters() {
+    public List<Object> getFilters() {
         return filters;
     }
 
-    public void setFilters(List<String> filters) {
-        // check if filters are accepted
-        for (String filter : filters) {
-            if(!AVAILABLE_FILTERS.contains(filter))
-                return;
+    public void setFilters(List<Object> filters) {
+        if(filters.isEmpty())
+            return;
+
+        List<Object> temp = new ArrayList<>(filters);
+        for (Object filter : filters) {
+            if(!(filter instanceof Map))
+                continue;
+
+            String key = (String) ((Map<String, ?>) filter).keySet().toArray()[0];
+            filterMap.put(key, ((Map<?, List<Object>>) filter).get(key));
+
+            temp.remove(filter);
         }
-        this.filters = filters;
+
+        this.filters = temp;
     }
 
     public String getQuery() {
@@ -118,6 +143,24 @@ class SearchQuery {
 
     public void setLoadedUsers(int loadedUsers) {
         this.loadedUsers = loadedUsers;
+    }
+
+}
+
+
+// must add up to 1
+enum SearchData{
+    USER(0.25),
+    RATING(0.75);
+
+    private final int data;
+
+    SearchData(double x){
+        data = (int) Math.round(SearchController.MAX_LOAD_RESULTS * x);
+    }
+
+    public int GET_MAX(){
+        return data;
     }
 
 }
