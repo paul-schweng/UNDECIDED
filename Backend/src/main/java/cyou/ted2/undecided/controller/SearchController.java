@@ -28,11 +28,11 @@ public class SearchController {
     public static final int MAX_LOAD_RESULTS = 8;
 
     static {
-        double sum = 0;
+        int sum = 0;
         for (SearchData data : SearchData.values())
             sum += data.GET_MAX();
 
-        assertEquals(1, sum, 0.0);
+        assertEquals(MAX_LOAD_RESULTS, sum, 0.0);
     }
 
 
