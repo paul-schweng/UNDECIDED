@@ -26,7 +26,7 @@ public class SearchController {
     public static final int MAX_LOAD_RESULTS = 8;
 
     static {
-        int sum = 0;
+        double sum = 0;
         for (SearchData data : SearchData.values())
             sum += data.GET_MAX();
 
