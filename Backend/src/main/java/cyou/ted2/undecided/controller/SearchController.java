@@ -126,7 +126,7 @@ class SearchQuery {
             temp.remove(filter);
         }
 
-        this.filters = temp;
+        this.filters = temp.isEmpty() ? AVAILABLE_FILTERS : temp;
     }
 
     public String getQuery() {
