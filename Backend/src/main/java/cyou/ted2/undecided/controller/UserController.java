@@ -38,12 +38,10 @@ class UserController {
 
     @PutMapping("/email")
     @ResponseBody
-    ResponseEntity<?> postNewEmail(@RequestBody String currentEmail, String newEmail) {
+    User postNewEmail(@RequestBody String currentEmail, String newEmail) {
         User user = repository.findUserByEmail(currentEmail);
         user.setEmail(newEmail);
-        repository.save(user);
-
-        return ResponseEntity.ok(user);
+        return repository.save(user);
     }
 
     @PutMapping("/password")
