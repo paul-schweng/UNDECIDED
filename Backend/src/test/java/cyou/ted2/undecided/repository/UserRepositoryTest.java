@@ -2,6 +2,7 @@ package cyou.ted2.undecided.repository;
 
 import cyou.ted2.undecided.models.User;
 import cyou.ted2.undecided.repository.RatingRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //@ContextConfiguration(classes = UserRepository.class)
@@ -23,7 +25,11 @@ class UserRepositoryTest {
     @Autowired
     private UserRepository underTest;
 
-
+    @BeforeEach
+    void setUp(){
+        User user = new User("", "testUser", "test@test.de");
+        underTest.save(user);
+    }
 
     @Test
     void findUserByEmail() {
@@ -43,7 +49,13 @@ class UserRepositoryTest {
     }
 
     @Test
-    @Disabled
-    void findUserByUsername() {
+    void testFindUserByUsername(){
+        //given
+        String userName = "testUser";
+        //when
+        var user2 = underTest.findUserByUsername(userName);
+        //then
+        assertEquals(userName, user2.getUsername());
     }
+
 }
