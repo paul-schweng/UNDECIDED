@@ -31,6 +31,15 @@ public class User extends Model{
     protected boolean verified, isDarkTheme;
     protected Integer ratingsNum, followerNum, followingNum, bannerImage;
 
+    public User(String id, String username, String email) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+    }
+
+    public User() {
+    }
+
     public int getBannerImage() {
         return bannerImage;
     }
@@ -176,6 +185,12 @@ public class User extends Model{
 
         if(!onlyCriticalData)
             setDescription(null);
+    }
+
+
+    @Override
+    public boolean equals(Object user) {
+        return (this.getId() == ((User) user).getId() && this.getEmail() == ((User) user).getEmail() && this.getUsername() == ((User) user).getUsername());
     }
 
 }
