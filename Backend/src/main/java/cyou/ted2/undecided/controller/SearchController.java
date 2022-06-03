@@ -117,6 +117,8 @@ class SearchQuery {
         if(filters.isEmpty())
             return;
 
+        // filters = [ "ratings", labels={[1,2,3]} ]
+
         List<Object> temp = new ArrayList<>(filters);
         for (Object filter : filters) {
             if(!(filter instanceof Map))
