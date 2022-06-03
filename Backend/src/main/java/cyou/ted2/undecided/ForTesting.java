@@ -14,5 +14,8 @@ public class ForTesting {
         long x = Math.round(4.499999999999999999999999999999999999999999999);
         LinkedHashMap LinkedHashMap = new LinkedHashMap<>();
         System.out.println(LinkedHashMap instanceof Map);
+
+
+        System.out.println(Boolean.parseBoolean("1"));
     }
 }
