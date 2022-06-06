@@ -42,11 +42,6 @@ public class CustomAuthProvider implements AuthenticationProvider {
         Authentication auth = null;
         System.out.println("credentials: " + userid + "  " + password);
 
-
-        try {
-            if(userid.equals("admin") && password.equals(PasswordHashing.getHash("1")))
-                return new UsernamePasswordAuthenticationToken(userid, password, Collections.emptyList());
-
             User user = usersRepository.findUserByEmail(userid);
             if(user == null)
                 user = usersRepository.findUserByUsername(userid);
@@ -58,9 +53,6 @@ public class CustomAuthProvider implements AuthenticationProvider {
             else
                 System.out.println("\nuser not found\n");
 
-        } catch (Exception e) {
-            System.out.println("Error on authentication: " + e);
-        }
         return auth;
     }
 
