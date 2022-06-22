@@ -18,8 +18,6 @@ import java.util.List;
 public class Rating extends Model{
 
     @Id
-    @GeneratedValue(generator = MyGenerator.generatorName)
-    @GenericGenerator(name = MyGenerator.generatorName, strategy = "cyou.ted2.undecided.providers.MyGenerator")
     @Column(name = "ratingid", nullable = false)
     protected String id;
     protected String description;

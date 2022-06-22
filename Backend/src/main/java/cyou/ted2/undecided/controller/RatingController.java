@@ -1,10 +1,12 @@
 package cyou.ted2.undecided.controller;
 
 import cyou.ted2.undecided.models.*;
+import cyou.ted2.undecided.providers.MyGenerator;
 import cyou.ted2.undecided.repository.RatingRepository;
 import cyou.ted2.undecided.repository.UserRepository;
 import cyou.ted2.undecided.repository.VoteRepository;
 import cyou.ted2.undecided.services.PartialLoadRatings;
+import cyou.ted2.undecided.tools.Tools;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -85,6 +87,7 @@ public class RatingController {
         newRating.setVoteNum(0);
         newRating.setCommentNum(0);
         newRating.setImageNum(0);
+        newRating.setId(Tools.generateId());
 
         user.setRatingsNum(user.getRatingsNum() + 1);
         userRepository.save(user);
