@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .ignoringAntMatchers("/auth/*")
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
-                .addFilterAfter(this.authCookieFilter, SecurityContextPersistenceFilter.class);
+                .addFilterAfter(this.authCookieFilter, SecurityContextPersistenceFilter.class).csrf().disable();
 
     }
 
