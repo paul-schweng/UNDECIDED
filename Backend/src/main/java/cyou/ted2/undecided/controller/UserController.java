@@ -171,12 +171,6 @@ class UserController {
 
     @PostMapping("/myFollowing")
     ResponseEntity<?> getFollowing(@RequestBody PartialLoadFollow body){
-
-        System.out.println("\n \n \n \n");
-        System.out.println(body.userid);
-        System.out.println("\n \n \n \n");
-
-
         if(body.userid == null)
             body.userid = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 

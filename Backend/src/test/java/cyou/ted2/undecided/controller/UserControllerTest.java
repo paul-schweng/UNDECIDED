@@ -1,5 +1,6 @@
 package cyou.ted2.undecided.controller;
 
+import cyou.ted2.undecided.models.Following;
 import cyou.ted2.undecided.models.User;
 import cyou.ted2.undecided.repository.FollowerRepository;
 import cyou.ted2.undecided.repository.UserRepository;
@@ -11,6 +12,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.http.ResponseEntity;
+
+import java.time.ZonedDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,16 +28,20 @@ class UserControllerTest {
 
     @Autowired
     private UserRepository userRepository;
-    @Mock
-    private FollowerRepository followerRepositoryMock;
+    @Autowired
+    private FollowerRepository followerRepository;
 
     private UserController underTest;
 
+    User user;
+
     @BeforeEach
     void setUp(){
-        underTest = new UserController(userRepository, followerRepositoryMock);
-        var user = new User("","test", "test@test.de");
+        underTest = new UserController(userRepository, followerRepository);
+        user = new User("","test", "test@test.de");
+        user.setFollowerNum(0);
         userRepository.save(user);
+
     }
 
     @Test
@@ -52,7 +61,21 @@ class UserControllerTest {
 
     }
 
-    //TODO this test fails add check whether changed email already exists
+//    @Test
+//    void followUser(){
+//        var user1 = new User("","test123","test123@test.de");
+//        user1.setFollowerNum(0);
+//        userRepository.save(user1);
+//
+//        user1 = userRepository.findUserByEmail("test123@test.de");
+//
+//        underTest.followUser(user1.getId());
+//
+//        assertEquals(1,user.getFollowingNum());
+//        assertEquals(1,user1.getFollowerNum());
+//
+//    }
+
     @Test
     @Disabled
     void changeEmailToAnEmailThatAlreadyExists() {
@@ -68,12 +91,40 @@ class UserControllerTest {
         underTest.postNewEmail("test123@test.de", newEmail);
 
         //then
-        //TODO hier muss dann irgendwo error geworfen werden
 
         var user2 = userRepository.findUserByEmail(newEmail);
 
         assertEquals(user1.getId(), user2.getId());
+    }
 
+    @Test
+    void getFollowing(){
+        PartialLoadFollow partialLoadFollow = new PartialLoadFollow();
+        partialLoadFollow.setUserid(userRepository.findUserByEmail("test@test.de").getId());
+
+        var user1 = new User("","test123", "test123@test.de");
+        user1.setFollowingNum(0);
+        userRepository.save(user1);
+
+
+
+        Following follow = new Following();
+        user1 = userRepository.findUserByEmail("test123@test.de");
+        user = userRepository.findUserByEmail("test@test.de");
+
+        follow.setUser(user1);
+        follow.setFollowing(user);
+        follow.setFollowDate(ZonedDateTime.now());
+
+        user1.setFollowingNum(user1.getFollowingNum()+1);
+        user.setFollowerNum(user.getFollowerNum()+1);
+
+        followerRepository.save(follow);
+        userRepository.save(user);
+        userRepository.save(user1);
+
+        ResponseEntity re = underTest.getFollowing(partialLoadFollow);
+        List<User> list= (List<User>) re.getBody();
 
     }
 }

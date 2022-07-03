@@ -115,15 +115,7 @@ public class RatingController {
         updatedRating.setImageNum(null);
         updatedRating.setUser(null);
 
-        System.out.println("\n \n");
-        System.out.println(rating.getUser().getPassword());
-
-
         rating.update(updatedRating);
-
-        System.out.println(rating.getUser().getPassword());
-        System.out.println("\n \n");
-
 
         rating.setLiked(isLiked(rating.getId()));
         ratingRepository.save(rating);
