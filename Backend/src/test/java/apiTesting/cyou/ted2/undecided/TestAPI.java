@@ -1,25 +1,24 @@
 package apiTesting.cyou.ted2.undecided;
 
-import cyou.ted2.undecided.repository.UserRepository;
-import io.restassured.RestAssured;
+import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.Cookie;
 import io.restassured.http.Cookies;
 import io.restassured.path.json.JsonPath;
-import io.swagger.v3.core.util.Json;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import io.restassured.filter.*;
-import io.restassured.response.Response;
-import io.restassured.specification.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import java.util.Map;
 
-import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-
-import java.util.*;
+import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestAPI {
     private String password = "test1234Test";
@@ -43,43 +42,25 @@ public class TestAPI {
     private boolean darkTheme = false;
 
 
+    private String timestamp;
     private Cookies cookies;
 
 
     @BeforeEach
     public void setUp() {
+        timestamp = ZonedDateTime.now()
+                .truncatedTo(ChronoUnit.MINUTES)
+                .format(DateTimeFormatter.ISO_DATE_TIME);
+        timestamp = timestamp.split("\\[")[0];
+
         Cookie jSessionID = given().relaxedHTTPSValidation().header("Authorization",
                 "Basic " + Base64.getEncoder().encodeToString((username + ":" + password).getBytes())).
                 when().get("https://undecided.ted2.cyou/auth/authenticate").getDetailedCookie("JSESSIONID");
         List<Cookie> cookieList = new ArrayList<>();
         cookieList.add(jSessionID);
-        Cookie xsrfToken = given().relaxedHTTPSValidation().cookie(jSessionID).when().get("https" +
-                "://undecided.ted2" +
-                ".cyou/api/user").getDetailedCookie("XSRF-TOKEN");
-        cookieList.add(xsrfToken);
 
         this.cookies = new Cookies(cookieList);
     }
-
-    @BeforeEach
-    public void addCsrfCookieFilter() {
-        RestAssured.filters(new Filter() {
-            @Override
-            public Response filter(FilterableRequestSpecification requestSpec,
-                                   FilterableResponseSpecification responseSpec, FilterContext ctx) {
-                String csrfToken = requestSpec.getCookies().getValue("XSRF-TOKEN");
-                if (csrfToken == null) {
-                    csrfToken =
-                            RestAssured.given().noFilters().relaxedHTTPSValidation().header("Authorization",
-                                    "Basic " + Base64.getEncoder().encodeToString((username + ":" + password).getBytes())).
-                                    get("https://undecided.ted2.cyou/auth/authenticate").cookie("XSRF-TOKEN");
-                }
-                requestSpec.replaceHeader("X-XSRF-TOKEN", csrfToken);
-                return ctx.next(requestSpec, responseSpec);
-            }
-        });
-    }
-
 
     @AfterEach
     public void cleanUp() {
@@ -114,8 +95,6 @@ public class TestAPI {
     }
 
 
-
-
     @Test
     public void testGetUser() {
         JsonPath jsonPath = given().relaxedHTTPSValidation().cookies(this.cookies).when().get("https" +
@@ -145,17 +124,39 @@ public class TestAPI {
 
     @Test
     public void testGetMyFollower() {
-//        JsonPath jsonPath =
-//                RestAssured.given().body("{\"userid\":" + userId + ", " +
-//                        "\"timestamp\":" + "2022-07-02T23:13:23.907+00:00}").relaxedHTTPSValidation().contentType(
-//                                "application/json").
-//                        header("Referer", "https://undecided.ted2.cyou/profile?follow=0").
-//                        header("X-Requested-With","XMLHttpRequest").
-//                        when().post(
-//                        "https" +
-//                                "://undecided" +
-//                                ".ted2" +
-//                                ".cyou/api/user/myFollower").jsonPath();
-//        System.out.println(jsonPath.prettyPrint());
+        List<Map<String, Object>> jsonPath =
+                given().body("{\"userid\":\"" + userId + "\", " +
+                        "\"timestamp\":\"" + timestamp + "\"}").relaxedHTTPSValidation().contentType(
+                        "application/json")
+                        .cookies(cookies).
+                        when().post("https://undecided.ted2.cyou/api/user/myFollower").as(new TypeRef<List<Map<String, Object>>>() {
+                });
+        assertEquals("chrisg", jsonPath.get(0).get("username"));
+    }
+
+    @Test
+    public void testGetMyFollowing() {
+        List<Map<String, Object>> jsonPath =
+                given().body("{\"userid\":\"" + userId + "\", " +
+                        "\"timestamp\":\"" + timestamp + "\"}").relaxedHTTPSValidation().contentType(
+                        "application/json")
+                        .cookies(cookies).
+                        when().post("https://undecided.ted2.cyou/api/user/myFollowing").as(new TypeRef<List<Map<String,
+                        Object>>>() {
+                });
+        assertEquals("chrisg", jsonPath.get(0).get("username"));
+    }
+
+    @Test
+    public void testGetMyFriends() {
+        List<Map<String, Object>> jsonPath =
+                given().body("{\"userid\":\"" + userId + "\", " +
+                        "\"timestamp\":\"" + timestamp + "\"}").relaxedHTTPSValidation().contentType(
+                        "application/json")
+                        .cookies(cookies).
+                        when().post("https://undecided.ted2.cyou/api/user/myFriends").as(new TypeRef<List<Map<String,
+                        Object>>>() {
+                });
+        assertEquals("chrisg", jsonPath.get(0).get("username"));
     }
 }
