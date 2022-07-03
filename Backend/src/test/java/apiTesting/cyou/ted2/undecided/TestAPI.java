@@ -100,7 +100,6 @@ public class TestAPI {
         JsonPath jsonPath = given().relaxedHTTPSValidation().cookies(this.cookies).when().get("https" +
                 "://undecided.ted2" +
                 ".cyou/api/user").getBody().jsonPath();
-        // System.out.println(jsonPath.prettyPrint());
         assertEquals(hashPassword, jsonPath.get("password"));
         assertEquals(username, jsonPath.get("username"));
         assertEquals(userId, jsonPath.get("id"));
