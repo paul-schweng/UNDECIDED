@@ -45,7 +45,7 @@ public class TestAPI {
 
     private Cookies cookies;
 
-
+    @Disabled
     @BeforeEach
     public void setUp() {
         Cookie jSessionID = given().relaxedHTTPSValidation().header("Authorization",
@@ -60,6 +60,7 @@ public class TestAPI {
 
         this.cookies = new Cookies(cookieList);
     }
+    @Disabled
     @BeforeEach
     public void addCsrfCookieFilter() {
         RestAssured.filters(new Filter() {
@@ -79,6 +80,7 @@ public class TestAPI {
         });
     }
 
+    @Disabled
     @AfterEach
     public void cleanUp() {
         this.password = "test1234Test";
@@ -102,7 +104,7 @@ public class TestAPI {
         this.darkTheme = false;
     }
 
-
+    @Disabled
     @Test
     public void testAuthenticate() {
 
@@ -113,6 +115,7 @@ public class TestAPI {
 
 
 
+    @Disabled
     @Test
     public void testGetUser() {
         JsonPath jsonPath = given().relaxedHTTPSValidation().cookies(this.cookies).when().get("https" +
@@ -139,6 +142,7 @@ public class TestAPI {
         assertEquals(darkTheme, jsonPath.get("darkTheme"));
     }
 
+    @Disabled
     @Test
     public void testGetMyFollower() {
 //        JsonPath jsonPath =
