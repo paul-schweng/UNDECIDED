@@ -141,17 +141,17 @@ public class TestAPI {
 
     @Test
     public void testGetMyFollower() {
-        JsonPath jsonPath =
-                RestAssured.given().body("{\"userid\":" + userId + ", " +
-                        "\"timestamp\":" + "2022-07-02T23:13:23.907+00:00}").relaxedHTTPSValidation().contentType(
-                                "application/json").
-                        header("Referer", "https://undecided.ted2.cyou/profile?follow=0").
-                        header("X-Requested-With","XMLHttpRequest").
-                        when().post(
-                        "https" +
-                                "://undecided" +
-                                ".ted2" +
-                                ".cyou/api/user/myFollower").jsonPath();
-        System.out.println(jsonPath.prettyPrint());
+//        JsonPath jsonPath =
+//                RestAssured.given().body("{\"userid\":" + userId + ", " +
+//                        "\"timestamp\":" + "2022-07-02T23:13:23.907+00:00}").relaxedHTTPSValidation().contentType(
+//                                "application/json").
+//                        header("Referer", "https://undecided.ted2.cyou/profile?follow=0").
+//                        header("X-Requested-With","XMLHttpRequest").
+//                        when().post(
+//                        "https" +
+//                                "://undecided" +
+//                                ".ted2" +
+//                                ".cyou/api/user/myFollower").jsonPath();
+//        System.out.println(jsonPath.prettyPrint());
     }
 }
